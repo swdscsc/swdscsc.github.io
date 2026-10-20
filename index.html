@@ -6,137 +6,148 @@
 <title>沈炜丹 · 个人主页 | Shen Weidan</title>
 <meta name="description" content="沈炜丹 — 计算机科学与技术 2027 届 · 嵌入式 / AI 应用 · 个人作品集">
 <style>
-  :root{
-    --bg1:#eef3ff; --bg2:#fdf0ff; --ink:#1c2333; --sub:#5d6a80;
-    --card:#ffffff; --line:#e4e9f4; --blue:#3b6ef6; --purple:#8b5cf6;
-    --pink:#ec4899; --shadow:0 10px 30px rgba(60,80,180,.10);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
-    color:var(--ink); background:linear-gradient(135deg,var(--bg1),var(--bg2),#eefaf3);
-    background-size:300% 300%; animation:bgFlow 18s ease infinite;
-    line-height:1.7; -webkit-font-size-adjust:100%;
-  }
-  @keyframes bgFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+/* ============ 主题变量：浅色 / 深色 ============ */
+:root{
+  --bg1:#eef3ff; --bg2:#fdf0ff; --bg3:#eefaf3;
+  --ink:#1c2333; --sub:#5d6a80; --card:#ffffff; --line:#e4e9f4;
+  --blue:#3b6ef6; --purple:#8b5cf6; --shadow:0 10px 30px rgba(60,80,180,.10);
+}
+body.dark{
+  --bg1:#141a2e; --bg2:#1e1636; --bg3:#12281f;
+  --ink:#e9edf7; --sub:#9aa8c2; --card:#1c2438; --line:#2c3550;
+  --blue:#6d9bff; --purple:#a78bfa; --shadow:0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  background-size:300% 300%;animation:bgFlow 18s ease infinite;
+  line-height:1.7;transition:background .4s,color .4s;min-height:100vh;
+}
+@keyframes bgFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
 
-  /* ===== 导航 ===== */
-  nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-    background:rgba(255,255,255,.75);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
-  .logo{font-weight:700;font-size:17px}
-  .logo b{color:var(--blue)}
-  nav a{color:var(--sub);text-decoration:none;margin-left:18px;font-size:14.5px}
-  nav a:hover{color:var(--blue)}
+/* ============ 顶部滚动进度条 ============ */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:100;
+  background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .1s}
 
-  /* ===== Hero ===== */
-  header{padding:70px 0 50px;text-align:center;position:relative;overflow:hidden}
-  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;z-index:0}
-  .b1{width:300px;height:300px;background:#c7d8ff;top:-60px;left:-80px}
-  .b2{width:260px;height:260px;background:#f3d1ff;bottom:-80px;right:-60px}
-  .b3{width:200px;height:200px;background:#d1f5e3;top:30%;right:22%}
-  .hero-grid{position:relative;z-index:1;display:flex;gap:44px;align-items:center;justify-content:center;flex-wrap:wrap}
+/* ============ 导航 ============ */
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.75);border-bottom:1px solid var(--line)}
+body.dark nav{background:rgba(28,36,56,.78)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:58px;gap:10px}
+.logo{font-weight:700;font-size:17px;white-space:nowrap}
+.logo b{color:var(--blue)}
+nav .links a{color:var(--sub);text-decoration:none;margin-left:16px;font-size:14.5px}
+nav .links a:hover{color:var(--blue)}
+#themeBtn{border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:10px;padding:6px 11px;cursor:pointer;font-size:15px}
+@media(max-width:700px){nav .links{display:none}}
 
-  /* 形象卡：随鼠标 3D 转动 */
-  .avatar-scene{perspective:900px}
-  .avatar-card{
-    width:280px;height:280px;border-radius:28px;background:var(--card);
-    box-shadow:var(--shadow);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;
-    transition:transform .15s ease-out,box-shadow .3s;transform-style:preserve-3d;
-    position:relative;overflow:hidden;
-  }
-  .avatar-card img{width:92%;height:92%;object-fit:contain;transform:translateZ(40px);
-    transition:transform .15s ease-out;pointer-events:none}
-  .avatar-card .shine{position:absolute;inset:0;
-    background:radial-gradient(circle at var(--mx,30%) var(--my,30%),rgba(255,255,255,.55),transparent 42%);
-    pointer-events:none;transform:translateZ(60px)}
-  .avatar-tip{font-size:12.5px;color:var(--sub);text-align:center;margin-top:10px}
+/* ============ Hero ============ */
+header{padding:64px 0 46px;text-align:center;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.45;z-index:0}
+.b1{width:300px;height:300px;background:#c7d8ff;top:-60px;left:-80px}
+.b2{width:260px;height:260px;background:#f3d1ff;bottom:-80px;right:-60px}
+.b3{width:200px;height:200px;background:#d1f5e3;top:34%;right:20%}
+.hero-grid{position:relative;z-index:1;display:flex;gap:40px;align-items:center;justify-content:center;flex-wrap:wrap}
 
-  .hero-text{max-width:480px;text-align:left}
-  .hi{color:var(--blue);font-weight:700;letter-spacing:1px}
-  h1{font-size:34px;margin:6px 0 2px}
-  .type-line{font-size:17px;color:var(--sub);min-height:28px;margin:8px 0 16px}
-  .type-line .cursor{display:inline-block;width:2px;height:18px;background:var(--blue);
-    vertical-align:-3px;animation:blink 1s step-end infinite}
-  @keyframes blink{50%{opacity:0}}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-  .chip{background:#fff;border:1px solid var(--line);border-radius:99px;
-    padding:5px 13px;font-size:13.5px;color:var(--ink);box-shadow:0 2px 8px rgba(60,80,180,.06)}
-  .chip i{margin-right:5px;font-style:normal}
-  .btns{display:flex;gap:12px;flex-wrap:wrap}
-  .btn{display:inline-block;padding:11px 22px;border-radius:12px;text-decoration:none;
-    font-size:15px;font-weight:600;transition:.2s}
-  .btn-main{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 8px 20px rgba(59,110,246,.30)}
-  .btn-main:hover{transform:translateY(-2px)}
-  .btn-ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
-  .btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+/* 形象：3 帧切换（复刻 oil-motion 的"头随鼠标转"） */
+.avatar-scene{perspective:900px}
+.avatar-card{width:280px;height:280px;border-radius:28px;background:var(--card);
+  box-shadow:var(--shadow);border:1px solid var(--line);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;transition:transform .18s ease-out}
+.avatar-card img{position:absolute;width:92%;height:92%;object-fit:contain;opacity:0;transition:opacity .12s}
+.avatar-card img.on{opacity:1}
+.avatar-tip{font-size:12.5px;color:var(--sub);text-align:center;margin-top:10px}
 
-  /* ===== 通用区块 ===== */
-  section{padding:56px 0}
-  .sec-title{text-align:center;margin-bottom:34px}
-  .sec-title h2{font-size:25px}
-  .sec-title p{color:var(--sub);font-size:14.5px;margin-top:4px}
-  .grid{display:grid;gap:18px}
-  .g3{grid-template-columns:repeat(3,1fr)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  @media(max-width:760px){.g3,.g2{grid-template-columns:1fr}.hero-grid{gap:24px}}
+.hero-text{max-width:480px;text-align:left}
+.hi{color:var(--blue);font-weight:700;letter-spacing:1px}
+h1{font-size:34px;margin:6px 0 2px}
+.type-line{font-size:17px;color:var(--sub);min-height:28px;margin:8px 0 14px}
+.type-line .cursor{display:inline-block;width:2px;height:18px;background:var(--blue);vertical-align:-3px;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{background:var(--card);border:1px solid var(--line);border-radius:99px;padding:5px 13px;font-size:13.5px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:11px 22px;border-radius:12px;text-decoration:none;font-size:15px;font-weight:600;transition:.2s;display:inline-block}
+.btn-main{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;box-shadow:0 8px 20px rgba(59,110,246,.28)}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
-    padding:22px;box-shadow:var(--shadow);transition:.25s}
-  .card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(60,80,180,.14)}
-  .card h3{font-size:17px;margin-bottom:6px}
-  .card .tag{display:inline-block;font-size:12px;color:var(--blue);background:#eef3ff;
-    border-radius:6px;padding:2px 9px;margin:3px 4px 3px 0}
-  .card p{font-size:14.5px;color:var(--sub)}
-  .card a{color:var(--blue);text-decoration:none;font-size:14px;font-weight:600}
+/* ============ 通用区块 ============ */
+section{padding:54px 0}
+.sec-title{text-align:center;margin-bottom:32px}
+.sec-title h2{font-size:25px}
+.sec-title p{color:var(--sub);font-size:14.5px;margin-top:4px}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}.hero-grid{gap:22px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;
+  box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(60,80,180,.16)}
+.card h3{font-size:17px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card .tag{display:inline-block;font-size:12px;color:var(--blue);background:rgba(59,110,246,.10);
+  border-radius:6px;padding:2px 9px;margin:3px 4px 3px 0}
+.card p{font-size:14.5px;color:var(--sub)}
+.card a{color:var(--blue);text-decoration:none;font-size:14px;font-weight:600}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.reveal.in{opacity:1;transform:none}
 
-  /* 项目卡 */
-  .proj .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-  .star{font-size:13px;color:#eab308}
+.proj .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.star{font-size:13px;color:#eab308}
+.ico{width:34px;height:34px;flex:0 0 34px}
 
-  /* 技能条 */
-  .skill{margin-bottom:14px}
-  .skill .lab{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:5px}
-  .skill .lab span:last-child{color:var(--sub)}
-  .bar{height:8px;border-radius:99px;background:#edf1f8;overflow:hidden}
-  .bar i{display:block;height:100%;border-radius:99px;
-    background:linear-gradient(90deg,var(--blue),var(--purple));width:0;
-    transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
+.skill{margin-bottom:14px}
+.skill .lab{display:flex;justify-content:space-between;font-size:14.5px;margin-bottom:5px}
+.skill .lab span:last-child{color:var(--sub)}
+.bar{height:8px;border-radius:99px;background:rgba(128,140,180,.18);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--purple));width:0;transition:width 1.2s cubic-bezier(.2,.7,.3,1)}
 
-  /* AI 实验区 */
-  .ai-box{background:linear-gradient(135deg,#1c2340,#3b2a6e);color:#e8ecff;
-    border-radius:20px;padding:34px;box-shadow:var(--shadow)}
-  .ai-box h2{color:#fff}
-  .ai-box p{color:#b9c3ef;font-size:14.5px}
-  .ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-  @media(max-width:760px){.ai-grid{grid-template-columns:1fr}}
-  .ai-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);
-    border-radius:14px;padding:16px}
-  .ai-item b{display:block;margin-bottom:4px;color:#fff}
-  .ai-item span{font-size:13.5px;color:#b9c3ef}
+/* 时间线 */
+.tl{border-left:2px solid var(--line);padding-left:22px}
+.tl .item{position:relative;margin-bottom:20px}
+.tl .item::before{content:'';position:absolute;left:-29px;top:7px;width:12px;height:12px;
+  border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));box-shadow:0 0 0 3px var(--card)}
+.tl b{display:block;font-size:15.5px}
+.tl span{font-size:13.5px;color:var(--sub)}
 
-  /* 页脚 */
-  footer{padding:40px 0 60px;text-align:center;color:var(--sub);font-size:14px}
-  footer a{color:var(--blue);text-decoration:none}
-  .dog{font-size:26px;cursor:pointer;display:inline-block;transition:.2s}
-  .dog:hover{transform:scale(1.3) rotate(-8deg)}
+/* AI 区 */
+.ai-box{background:linear-gradient(135deg,#1c2340,#3b2a6e);color:#e8ecff;border-radius:20px;padding:34px;box-shadow:var(--shadow)}
+.ai-box h2{color:#fff}
+.ai-box p{color:#b9c3ef;font-size:14.5px}
+.ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+@media(max-width:760px){.ai-grid{grid-template-columns:1fr}}
+.ai-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:16px}
+.ai-item b{display:block;margin-bottom:4px;color:#fff}
+.ai-item span{font-size:13.5px;color:#b9c3ef}
+
+footer{padding:40px 0 60px;text-align:center;color:var(--sub);font-size:14px}
+footer a{color:var(--blue);text-decoration:none}
+
+/* 跟随鼠标的宠物大黄狗 */
+#pet{position:fixed;left:0;top:0;font-size:30px;pointer-events:none;z-index:80;
+  user-select:none;will-change:transform;opacity:.95}
+#pet.wag{animation:wag .45s ease}
+@keyframes wag{0%,100%{rotate:-10deg}50%{rotate:10deg}}
 </style>
 </head>
 <body>
 
+<div id="progress"></div>
+<div id="pet">🐕</div>
+
 <nav>
   <div class="wrap">
     <div class="logo">沈炜<b>丹</b> · SWD</div>
-    <div>
-      <a href="#about">关于</a>
-      <a href="#projects">项目</a>
-      <a href="#skills">技能</a>
-      <a href="#ai">AI 实验室</a>
-      <a href="#contact">联系</a>
+    <div class="links">
+      <a href="#about">关于</a><a href="#projects">项目</a><a href="#skills">技能</a>
+      <a href="#path">成长轨迹</a><a href="#ai">AI 实验室</a><a href="#contact">联系</a>
     </div>
+    <button id="themeBtn" title="切换深色/浅色">🌙</button>
   </div>
 </nav>
 
@@ -146,10 +157,12 @@
 
     <div class="avatar-scene">
       <div class="avatar-card" id="avatarCard">
-        <div class="shine"></div>
-        <img src="assets/avatar.png" alt="沈炜丹的 AI 形象">
+        <!-- 三帧：左看 / 正视 / 右看（AI 生成，鼠标切换） -->
+        <img src="assets/avatar-look-left.png"   id="fL" alt="向左看">
+        <img src="assets/avatar-look-center.png" id="fC" class="on" alt="正视">
+        <img src="assets/avatar-look-right.png"  id="fR" alt="向右看">
       </div>
-      <div class="avatar-tip">✨ 移动鼠标，我会转头看你</div>
+      <div class="avatar-tip">✨ 眼睛会跟着你的鼠标转</div>
     </div>
 
     <div class="hero-text">
@@ -157,10 +170,11 @@
       <h1>沈炜丹 <span style="font-size:20px;color:var(--sub)">Shen Weidan</span></h1>
       <div class="type-line"><span id="typed"></span><span class="cursor"></span></div>
       <div class="chips">
-        <span class="chip"><i>🎓</i>岭南师范学院 · 计算机科学与技术 · 2027 届</span>
-        <span class="chip"><i>📍</i>广东 · 深圳</span>
-        <span class="chip"><i>🛠️</i>嵌入式 / AI 应用 / 测试</span>
-        <span class="chip"><i>🐕</i>和一只大黄狗一起写代码</span>
+        <span class="chip">🎓 岭南师范学院 · 计科 · 2027 届</span>
+        <span class="chip">📍 湖南岳阳 → 广东深圳</span>
+        <span class="chip">🛠️ 嵌入式 / AI 应用 / 测试</span>
+        <span class="chip">🍳 会写代码，也会做饭</span>
+        <span class="chip">🐕 和一只大黄狗一起改 bug</span>
       </div>
       <div class="btns">
         <a class="btn btn-main" href="#projects">看我的项目 →</a>
@@ -173,44 +187,75 @@
 
 <section id="about">
   <div class="wrap">
-    <div class="sec-title"><h2>👋 关于我</h2><p>喜欢把想法做成能跑起来的东西</p></div>
+    <div class="sec-title"><h2>👋 关于我</h2><p>把想法做成能跑起来的东西，是我最上瘾的事</p></div>
     <div class="grid g3">
-      <div class="card"><h3>🧑‍💻 计算机科班</h3><p>岭南师范学院计算机科学与技术专业，2027 届本科生。修满 160 学分，历年均分 83+，通过 CET-6，能顺畅阅读英文技术手册。</p></div>
-      <div class="card"><h3>⚙️ 喜欢动手</h3><p>从 STM32 点灯到 MQTT 上云，从风控模型到网页交互——我享受"从想法到实物/可运行程序"的完整过程，动手和查文档能力是我的强项。</p></div>
-      <div class="card"><h3>🤝 组织协调</h3><p>校大学生艺术团器乐队队长，统筹 50+ 名队员、组织 8 场校级活动。技术之外，沟通与执行也是我的标签。</p></div>
+      <div class="card reveal"><h3>🧑‍💻 计算机科班</h3><p>岭南师范学院计算机科学与技术专业，2027 届本科生。修满 160 学分，均分 83+，通过 CET-6，能顺畅阅读英文技术手册与芯片 Datasheet。</p></div>
+      <div class="card reveal"><h3>⚙️ 动手派</h3><p>从 STM32 点灯到 MQTT 上云，从风控模型到网页交互——我享受"从想法到实物"的完整链路。查文档、调 bug、用示波器和万用表，这些我不怵。</p></div>
+      <div class="card reveal"><h3>🤝 组织者</h3><p>校大学生艺术团器乐队队长，统筹 50+ 名队员、组织 8 场校级活动。技术之外，沟通与执行是我的第二个标签。</p></div>
     </div>
   </div>
 </section>
 
-<section id="projects" style="background:rgba(255,255,255,.5)">
+<section id="projects" style="background:rgba(128,140,180,.06)">
   <div class="wrap">
-    <div class="sec-title"><h2>🚀 项目经历</h2><p>全部真实完成 · 代码与文档开源在 GitHub</p></div>
+    <div class="sec-title"><h2>🚀 项目经历</h2><p>全部真实完成 · 图标是我手写的 SVG（不是素材库）</p></div>
     <div class="grid g2">
 
-      <div class="card proj">
-        <div class="top"><h3>🏠 智能家居 IoT 系统</h3><span class="star">STM32 · ESP8266</span></div>
-        <p>STM32F103 + ESP8266 通过 MQTT 协议接入<b>华为云 IoT 平台</b>，实现传感器数据上报与远程控制指令下发，完成端—云双向联调，连续运行稳定。含 FreeRTOS 多任务调度与外设驱动（GPIO/UART/I2C/ADC/PWM）。</p>
+      <div class="card proj reveal">
+        <div class="top">
+          <h3>
+            <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="#3b6ef6" stroke-width="2" stroke-linecap="round">
+              <path d="M4 14 16 5l12 9"/><path d="M7 14v12h18V14"/><path d="M13 26v-7h6v7"/>
+              <path d="M16 8v3M12 7l1 3M20 7l-1 3" stroke="#8b5cf6"/>
+            </svg>
+            智能家居 IoT 系统
+          </h3><span class="star">STM32 · ESP8266</span>
+        </div>
+        <p>STM32F103 + ESP8266 通过 MQTT 接入<b>华为云 IoT 平台</b>，完成传感器上报与远程控制双向联调，连续运行稳定。含 FreeRTOS 多任务与外设驱动（GPIO/UART/I2C/ADC/PWM）。</p>
         <div><span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">MQTT</span><span class="tag">华为云</span><span class="tag">C</span></div>
         <p style="margin-top:8px"><a href="https://github.com/swdscsc/stm32-esp8266-huaweicloud-iot" target="_blank">→ 查看仓库</a></p>
       </div>
 
-      <div class="card proj">
-        <div class="top"><h3>💳 信用卡风控模型 + SHAP 可解释性</h3><span class="star">机器学习</span></div>
-        <p>基于真实信用卡数据集构建欺诈检测模型，采用<b>先切分后重采样</b>防止数据泄露，以 AUC 为主指标并报告最优 F1 阈值下的分类指标；用 <b>SHAP</b> 对模型进行可解释性分析。附 MODEL_CARD 与可复现脚本。</p>
+      <div class="card proj reveal">
+        <div class="top">
+          <h3>
+            <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="#3b6ef6" stroke-width="2" stroke-linecap="round">
+              <rect x="4" y="8" width="17" height="12" rx="2"/><path d="M4 13h17"/>
+              <path d="M23 12l5-4v13l-5-3z" stroke="#8b5cf6"/>
+            </svg>
+            信用卡风控 + SHAP 可解释性
+          </h3><span class="star">机器学习</span>
+        </div>
+        <p>基于真实信用卡数据集构建欺诈检测模型，<b>先切分后重采样</b>防止数据泄露，以 AUC 为主指标并报告最优 F1 阈值下的分类指标；用 <b>SHAP</b> 做可解释性分析。附 MODEL_CARD 与可复现脚本。</p>
         <div><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">SHAP</span><span class="tag">Stacking</span></div>
         <p style="margin-top:8px"><a href="https://github.com/swdscsc" target="_blank">→ 查看仓库</a></p>
       </div>
 
-      <div class="card proj">
-        <div class="top"><h3>🔍 工业缺陷视觉检测</h3><span class="star">OpenCV · 深度学习</span></div>
-        <p>基于 OpenCV 与卷积网络的金属表面缺陷检测，完成预处理、数据增强与训练调优，<b>F1 达 0.97</b>；输出可视化检测结果与实验报告。</p>
+      <div class="card proj reveal">
+        <div class="top">
+          <h3>
+            <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="#3b6ef6" stroke-width="2" stroke-linecap="round">
+              <path d="M2 16s5-8 14-8 14 8 14 8-5 8-14 8S2 16 2 16z"/><circle cx="16" cy="16" r="3.5" stroke="#8b5cf6"/>
+            </svg>
+            工业缺陷视觉检测
+          </h3><span class="star">OpenCV · CNN</span>
+        </div>
+        <p>OpenCV + 卷积网络做金属表面缺陷检测，完成预处理、数据增强与调优，<b>F1 达 0.97</b>，输出可视化结果与实验报告。</p>
         <div><span class="tag">OpenCV</span><span class="tag">CNN</span><span class="tag">数据增强</span></div>
         <p style="margin-top:8px"><a href="https://github.com/swdscsc" target="_blank">→ 查看仓库</a></p>
       </div>
 
-      <div class="card proj">
-        <div class="top"><h3>📊 学生成绩管理系统</h3><span class="star">Java 全栈</span></div>
-        <p>JavaFX + SQLite + JDBC 的桌面成绩管理系统，支持增删改查、文件导入导出与统计图表，<b>独立完成开发、文档与答辩</b>。</p>
+      <div class="card proj reveal">
+        <div class="top">
+          <h3>
+            <svg class="ico" viewBox="0 0 32 32" fill="none" stroke="#3b6ef6" stroke-width="2" stroke-linecap="round">
+              <ellipse cx="16" cy="8" rx="10" ry="4"/><path d="M6 8v16c0 2.2 4.5 4 10 4s10-1.8 10-4V8"/>
+              <path d="M6 16c0 2.2 4.5 4 10 4s10-1.8 10-4" stroke="#8b5cf6"/>
+            </svg>
+            学生成绩管理系统
+          </h3><span class="star">Java 全栈</span>
+        </div>
+        <p>JavaFX + SQLite + JDBC 桌面成绩管理系统，支持增删改查、文件导入导出与统计图表，<b>独立完成开发、文档与答辩</b>。</p>
         <div><span class="tag">Java</span><span class="tag">JavaFX</span><span class="tag">SQLite</span><span class="tag">JDBC</span></div>
       </div>
 
@@ -230,7 +275,7 @@
       </div>
       <div class="card">
         <div class="skill"><div class="lab"><span>Java · JavaFX · SQLite</span><span>掌握</span></div><div class="bar"><i data-w="70%"></i></div></div>
-        <div class="skill"><div class="lab"><span>HTML / CSS / JS · 微信小程序</span><span>掌握</span></div><div class="bar"><i data-w="68%"></i></div></div>
+        <div class="skill"><div class="lab"><span>C / C++ 基础 · 数据结构</span><span>掌握</span></div><div class="bar"><i data-w="68%"></i></div></div>
         <div class="skill"><div class="lab"><span>Git · Linux · Docker</span><span>掌握</span></div><div class="bar"><i data-w="65%"></i></div></div>
         <div class="skill"><div class="lab"><span>LLM 应用 · Prompt / RAG</span><span>学习中</span></div><div class="bar"><i data-w="40%"></i></div></div>
       </div>
@@ -238,15 +283,34 @@
   </div>
 </section>
 
+<section id="path" style="background:rgba(128,140,180,.06)">
+  <div class="wrap">
+    <div class="sec-title"><h2>🌱 成长轨迹</h2><p>不是天赋型，是一路自己折腾过来的</p></div>
+    <div class="card reveal" style="max-width:720px;margin:0 auto">
+      <div class="tl">
+        <div class="item"><b>2023 · 入学，第一次摸单片机</b><span>点亮第一个 LED 花了整晚，但从此入坑嵌入式</span></div>
+        <div class="item"><b>2024 · 艺术团器乐队队长</b><span>统筹 50+ 人、8 场校级活动，学会带团队和抗压</span></div>
+        <div class="item"><b>2025 · STM32 + 华为云 IoT 落地</b><span>第一次把设备真正连上云，端—云联调跑通那一刻特别爽</span></div>
+        <div class="item"><b>2025 · 转向机器学习</b><span>风控模型 + SHAP 可解释性，学会"模型要能解释清楚"</span></div>
+        <div class="item"><b>2026 · 用 AI 做自己的网站</b><span>AI 生成形象、手写交互代码——把自己变成"会用 AI 的工程师"</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="ai">
   <div class="wrap">
-    <div class="ai-box">
-      <div class="sec-title" style="text-align:left;margin-bottom:8px"><h2>🤖 AI 实验室</h2>
-      <p>这个网站本身就是我的一次 AI 实践——形象由 AI 生成、版式由 AI 协作完成、交互效果由我理解原理后亲手调整。<br>我相信：未来属于「会用 AI 的人」，而我在把自己变成这种人。</p></div>
+    <div class="ai-box reveal">
+      <h2>🤖 AI 实验室</h2>
+      <p style="margin-top:6px">这个网站本身就是一次 AI 实践：<b>形象由 AI 生成</b>（3 帧朝向，鼠标切换）、<b>图标由我手写 SVG</b>、<b>交互代码由我理解原理后亲手调整</b>。<br>
+      我相信未来属于「会用 AI 的人」，而我正把自己变成这种人。</p>
       <div class="ai-grid">
-        <div class="ai-item"><b>🎨 AI 个人 IP 形象</b><span>用文生图模型设计专属卡通形象，形成统一视觉记忆点</span></div>
-        <div class="ai-item"><b>🖱️ 网页交互动效</b><span>3D 视差、鼠标跟随、打字机动画——纯 CSS+JS 亲手实现</span></div>
-        <div class="ai-item"><b>📈 持续更新中</b><span>接下来：LLM 应用 Demo、RAG 知识库、小程序实战</span></div>
+        <div class="ai-item"><b>🎨 AI 个人 IP 形象</b><span>同一形象生成多个朝向/场景，形成统一视觉记忆点</span></div>
+        <div class="ai-item"><b>🖱️ 头随鼠标转</b><span>3 帧朝向图 + JS 判断鼠标方向切换（复刻 oil-motion 原理）</span></div>
+        <div class="ai-item"><b>🐕 鼠标跟班宠物</b><span>缓动算法让大黄狗一路小跑跟着光标</span></div>
+        <div class="ai-item"><b>✍️ 手写 SVG 图标</b><span>不用素材库，项目图标全部自己画，加载快还可控</span></div>
+        <div class="ai-item"><b>🌙 深色模式</b><span>CSS 变量 + localStorage，记住你的偏好</span></div>
+        <div class="ai-item"><b>📈 持续更新中</b><span>下一步：LLM 应用 Demo、RAG 知识库、小程序实战</span></div>
       </div>
     </div>
   </div>
@@ -256,37 +320,59 @@
   <div class="wrap">
     <div class="sec-title"><h2>📮 联系我</h2><p>欢迎交流 · 合作 · 内推</p></div>
     <div class="grid g3">
-      <div class="card" style="text-align:center"><h3>📧 邮箱</h3><p><a href="mailto:3103141093@qq.com">3103141093@qq.com</a></p></div>
-      <div class="card" style="text-align:center"><h3>🐙 GitHub</h3><p><a href="https://github.com/swdscsc" target="_blank">github.com/swdscsc</a></p></div>
-      <div class="card" style="text-align:center"><h3>📍 城市</h3><p>广东深圳（可到湾区各市）</p></div>
+      <div class="card reveal" style="text-align:center"><h3>📧 邮箱</h3><p><a href="mailto:3103141093@qq.com">3103141093@qq.com</a></p></div>
+      <div class="card reveal" style="text-align:center"><h3>🐙 GitHub</h3><p><a href="https://github.com/swdscsc" target="_blank">github.com/swdscsc</a></p></div>
+      <div class="card reveal" style="text-align:center"><h3>📍 城市</h3><p>广东深圳（可到湾区各市）</p></div>
     </div>
-    <div style="text-align:center;margin-top:26px">
-      <span class="dog" id="dog">🐕</span>
-      <p class="small" style="font-size:13px;color:var(--sub);margin-top:6px">点我家大黄狗一下 → <span id="bark"></span></p>
+    <div style="text-align:center;margin-top:24px">
+      <p style="font-size:14px;color:var(--sub)">🐕 大黄狗会跟着你的鼠标跑，试试看～</p>
     </div>
   </div>
 </section>
 
-<footer>© 2026 沈炜丹 · 用 AI 和好奇心构建 · <a href="https://github.com/swdscsc" target="_blank">GitHub</a></footer>
+<footer>
+  © 2026 沈炜丹 · 用 AI 和好奇心构建 · <a href="https://github.com/swdscsc" target="_blank">GitHub</a>
+</footer>
 
 <script>
-/* ===== 1. 形象卡随鼠标 3D 转动 ===== */
+/* ===== 1. 头随鼠标转（3 帧切换，复刻 oil-motion 原理） =====
+   AI 生成同一形象的"左看/正视/右看"三张图；JS 计算鼠标相对卡片中心的
+   水平偏移 dx（-1 左 ~ 1 右），切换对应帧，再叠一点 3D 倾斜。 */
+const fL = document.getElementById('fL'), fC = document.getElementById('fC'), fR = document.getElementById('fR');
 const card = document.getElementById('avatarCard');
-const scene = document.querySelector('.avatar-scene');
-scene.addEventListener('mousemove', e => {
+function setFrame(k){
+  fL.classList.toggle('on', k==='L');
+  fC.classList.toggle('on', k==='C');
+  fR.classList.toggle('on', k==='R');
+}
+window.addEventListener('mousemove', e => {
   const r = card.getBoundingClientRect();
-  const x = (e.clientX - r.left) / r.width  - 0.5;   // -0.5 ~ 0.5
-  const y = (e.clientY - r.top ) / r.height - 0.5;
-  card.style.transform = `rotateY(${x*24}deg) rotateX(${-y*24}deg)`;
-  card.style.setProperty('--mx', ((x+0.5)*100)+'%');
-  card.style.setProperty('--my', ((y+0.5)*100)+'%');
+  const cx = r.left + r.width/2, cy = r.top + r.height/2;
+  const dx = (e.clientX - cx) / (r.width / 2);
+  const dy = (e.clientY - cy) / (r.height / 2);
+  if(Math.abs(dx) > 2.5 || Math.abs(dy) > 3){ setFrame('C'); card.style.transform=''; return; }
+  setFrame(dx < -0.18 ? 'L' : (dx > 0.18 ? 'R' : 'C'));
+  card.style.transform = `rotateY(${dx*10}deg) rotateX(${-dy*10}deg)`;
 });
-scene.addEventListener('mouseleave', () => { card.style.transform = 'rotateY(0) rotateX(0)'; });
 
-/* ===== 2. 打字机效果 ===== */
+/* ===== 2. 鼠标跟班宠物：大黄狗（lerp 缓动跟随） =====
+   每帧：位置 += (目标 - 当前) * 0.12   系数越小越"懒"，越大越"紧跟" */
+const pet = document.getElementById('pet');
+let px = window.innerWidth/2, py = window.innerHeight/2, tx = px, ty = py, lastX = px;
+window.addEventListener('mousemove', e => { tx = e.clientX + 26; ty = e.clientY + 18; });
+(function follow(){
+  px += (tx - px) * 0.12;
+  py += (ty - py) * 0.12;
+  pet.classList.toggle('wag', Math.abs(tx - lastX) > 6);   // 跑动时摇尾巴
+  pet.style.transform = `translate(${px}px, ${py}px) scaleX(${tx < px ? 1 : -1})`;
+  lastX = tx;
+  requestAnimationFrame(follow);
+})();
+
+/* ===== 3. 打字机 ===== */
 const lines = [
   '计算机科学与技术 2027 届本科生 🎓',
-  '正在做 STM32 + 华为云 IoT 的智能家居 ⚡',
+  '做过 STM32 + 华为云 IoT 的智能家居 ⚡',
   '也玩机器学习：风控模型 + SHAP 可解释性 📊',
   '目标是成为「会用 AI 的工程师」🤖',
 ];
@@ -301,20 +387,28 @@ let li=0, ci=0, del=false;
   else { del=false; li=(li+1)%lines.length; setTimeout(tick, 300); }
 })();
 
-/* ===== 3. 技能条滚动到可见时充能 ===== */
+/* ===== 4. 滚动进度条 + 元素入场 ===== */
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+});
 const io = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting){
+    e.target.classList.add('in');
     e.target.querySelectorAll('.bar i').forEach(b => b.style.width = b.dataset.w);
     io.unobserve(e.target);
   }
-}), {threshold:.3});
-io.observe(document.getElementById('skillBox'));
+}), {threshold:.15});
+document.querySelectorAll('.reveal, #skillBox').forEach(el => io.observe(el));
 
-/* ===== 4. 大黄狗彩蛋 ===== */
-const barks = ['汪！汪汪！🐶','汪呜～（摇尾巴）','汪！（叼来了一个 offer）','汪汪汪！（开心转圈圈）'];
-let bi = 0;
-document.getElementById('dog').addEventListener('click', () => {
-  document.getElementById('bark').textContent = barks[bi++ % barks.length];
+/* ===== 5. 深色模式（localStorage 记住选择） ===== */
+const btn = document.getElementById('themeBtn');
+if(localStorage.getItem('swd-theme') === 'dark'){ document.body.classList.add('dark'); btn.textContent = '☀️'; }
+btn.addEventListener('click', () => {
+  const dark = document.body.classList.toggle('dark');
+  btn.textContent = dark ? '☀️' : '🌙';
+  localStorage.setItem('swd-theme', dark ? 'dark' : 'light');
 });
 </script>
 </body>
