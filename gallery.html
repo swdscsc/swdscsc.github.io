@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#fffdf8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沈炜丹个展 — 把想法做成能跑起来的东西 | SWD SOLO EXHIBITION</title>
+<meta name="description" content="沈炜丹 — 计算机科学与技术 2027 届 · 嵌入式 / AI 应用 · 个人作品展">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%96%BC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+SC:wght@600;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============ 美术馆 / 画廊风 ============ */
+:root{
+  --bg:#f1efe9;
+  --cta:var(--gold);
+  --wall:#f1efe9; --wall-d:#e6e2d8; --ink:#211d17; --muted:#776f61;
+  --gold:#9c7c3c; --night:#f7f2e6; --night-card:#fffdf7;
+  --hair:rgba(33,29,23,.14);
+  --serif:'Noto Serif SC',serif; --sans:'Noto Sans SC',sans-serif;
+  --disp:'Cormorant Garamond','Noto Serif SC',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--wall);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.85;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:200;background:var(--gold)}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(241,239,233,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hair)}
+nav .in{max-width:1160px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 26px}
+nav .brand{font-family:var(--disp);font-size:19px;letter-spacing:3px;font-weight:600}
+nav .links{display:flex;gap:24px;font-size:13.5px}
+nav .links a{color:var(--muted);padding:4px 2px;border-bottom:2px solid transparent}
+nav .links a:hover,nav .links a.active{color:var(--ink);border-bottom-color:var(--gold)}
+nav .alts{display:flex;gap:14px;font-size:12px;color:var(--muted)}
+nav .alts a:hover{color:var(--gold)}
+
+/* 展览海报 */
+#poster{padding:90px 0 70px;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(255,252,240,.9),transparent),var(--wall)}
+#poster .center{text-align:center}
+.ex-tag{display:inline-block;font-family:var(--disp);letter-spacing:6px;font-size:13px;color:var(--gold);
+  border:1px solid var(--gold);padding:8px 22px;margin-bottom:30px}
+h1{font-family:var(--serif);font-weight:900;font-size:clamp(40px,6.4vw,74px);line-height:1.22}
+h1 .en{display:block;font-family:var(--disp);font-weight:500;font-size:.42em;letter-spacing:5px;color:var(--muted);margin-top:18px}
+.poster-meta{display:flex;justify-content:center;gap:34px;margin-top:30px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.poster-meta span{display:flex;align-items:center;gap:8px}
+.poster-meta i{font-style:normal;color:var(--gold)}
+
+/* 展厅（画作） */
+.hall{position:relative;padding:70px 0 90px}
+.hall::before{content:'';position:absolute;inset:0;background:
+  linear-gradient(180deg,var(--wall) 0%,var(--wall-d) 12%,var(--wall-d) 88%,var(--wall) 100%)}
+.hall .wrap{position:relative}
+.frame-stage{display:flex;justify-content:center}
+.mascot-frame{position:relative;padding:26px;background:#fbfaf7;
+  box-shadow:0 1px 2px rgba(0,0,0,.06),0 12px 34px rgba(0,0,0,.14),inset 0 0 0 1px var(--hair);
+  border:1px solid rgba(33,29,23,.25)}
+.mascot-frame::before{content:'';position:absolute;inset:10px;border:6px solid #b08d4f;
+  box-shadow:inset 0 0 0 2px #8f6f37,0 2px 8px rgba(0,0,0,.12)}
+.mascot{position:relative;width:min(440px,78vw);aspect-ratio:1/1;overflow:hidden}
+.mascot img{width:100%;height:100%;object-fit:cover}
+/* 射灯 */
+.spotlight{position:absolute;top:-70px;left:50%;transform:translateX(-50%);width:640px;height:480px;
+  background:radial-gradient(ellipse at 50% 20%,rgba(255,244,214,.5),transparent 65%);pointer-events:none}
+.plaque{margin:26px auto 0;max-width:520px;text-align:center;font-size:13px;color:var(--muted)}
+.plaque b{display:block;font-family:var(--serif);font-size:16px;color:var(--ink);margin-bottom:4px}
+.plaque i{font-style:normal;color:var(--gold)}
+
+/* 展区标题 */
+.room-head{padding:100px 0 10px;text-align:center}
+.room-no{font-family:var(--disp);letter-spacing:5px;font-size:14px;color:var(--gold)}
+.room-head h2{font-family:var(--serif);font-weight:900;font-size:clamp(30px,4.4vw,46px);margin-top:12px}
+.room-head p{color:var(--muted);margin-top:10px;font-size:14.5px}
+
+/* 展品墙 */
+.exhibits{display:grid;grid-template-columns:1fr 1fr;gap:44px 40px;padding:56px 0 20px}
+.exhibit{position:relative}
+.exhibit .art{position:relative;background:#fbfaf7;padding:16px;border:1px solid rgba(33,29,23,.22);
+  box-shadow:0 1px 2px rgba(0,0,0,.05),0 10px 28px rgba(0,0,0,.10);transition:transform .35s,box-shadow .35s}
+.exhibit:hover .art{transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,0,0,.16)}
+.exhibit .art-in{border:1px solid var(--hair);padding:24px 26px;min-height:190px;background:linear-gradient(160deg,#fdfcf9,#f6f3ec)}
+.exhibit .art-in .cat{font-family:var(--disp);font-size:11.5px;letter-spacing:3px;color:var(--gold)}
+.exhibit .art-in h3{font-family:var(--serif);font-size:22px;font-weight:900;margin:8px 0 10px}
+.exhibit .art-in p{font-size:14px;color:var(--muted)}
+.exhibit .art-in p b{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tag{font-size:11.5px;color:var(--muted);border:1px solid var(--hair);padding:2px 10px;border-radius:999px;background:#fffdf6}
+.plaque-s{margin-top:14px;display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted)}
+.plaque-s .act{display:flex;gap:16px}
+.plaque-s a,.p-more{color:var(--ink);border-bottom:1px solid var(--gold);cursor:pointer;background:none;border-top:none;
+  border-left:none;border-right:none;font-family:inherit;font-size:12.5px;padding:0 0 1px}
+.plaque-s a:hover,.p-more:hover{color:var(--gold)}
+.p-detail{display:none}
+
+/* 数字条 */
+.numbers{display:flex;justify-content:center;gap:70px;padding:60px 0;flex-wrap:wrap;text-align:center}
+.numbers b{font-family:var(--disp);font-size:52px;font-weight:600;display:block;line-height:1.1}
+.numbers span{font-size:12.5px;letter-spacing:2px;color:var(--muted)}
+
+/* 关于（夜间展厅） */
+.night{background:var(--night);color:#211d17}
+.night .room-head p,.night td .d{color:#776f61}
+.night-room{padding:96px 0}
+.about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;margin-top:52px}
+.about-grid p{color:#c9c0b0;font-size:15px;margin-bottom:16px}
+.about-grid b{color:#211d17}
+.ways .way{border-top:1px solid rgba(33,29,23,.13)}
+.way{display:flex;gap:16px;padding:14px 0}
+.way .n{font-family:var(--disp);color:var(--gold);font-size:20px;min-width:30px}
+.way b{display:block;font-size:15px;color:#211d17}
+.way span{font-size:13.5px;color:#776f61}
+.frames-mini{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.mini-frame{background:var(--night-card);border:1px solid rgba(33,29,23,.15);padding:20px 22px;text-align:center}
+.mini-frame b{font-family:var(--disp);font-size:34px;color:var(--gold);display:block}
+.mini-frame span{font-size:12px;color:#776f61;letter-spacing:1px}
+
+/* 技能（展柜） */
+.vitrine{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:56px}
+.vit{border:1px solid var(--hair);background:#fbfaf7;padding:26px;transition:transform .3s}
+.vit:hover{transform:translateY(-5px)}
+.vit b{font-family:var(--serif);font-size:17px;display:block;margin-bottom:12px}
+.vit ul{list-style:none}
+.vit li{font-size:13.5px;color:var(--muted);padding:5px 0;border-bottom:1px dashed var(--hair)}
+.vit li:last-child{border:none}
+table{width:100%;border-collapse:collapse;margin-top:52px;font-size:14px;background:#fbfaf7;border:1px solid var(--hair)}
+th{font-family:var(--disp);font-size:12px;letter-spacing:2px;text-align:left;color:var(--muted);
+  border-bottom:2px solid var(--ink);padding:12px 14px}
+td{border-bottom:1px solid var(--hair);padding:13px 14px;vertical-align:top}
+td:first-child{font-weight:700;white-space:nowrap}
+td .lv{font-size:12px;color:var(--gold);letter-spacing:1px}
+td .d{color:var(--muted);font-size:13px;display:block}
+
+/* AI 展厅 */
+.lab-hall{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:center;margin-top:56px}
+.lab-hall .mascot-frame{background:#1d1a15;border-color:rgba(239,233,221,.2)}
+.lab-hall .mascot-frame::before{border-color:#8a6f3e;box-shadow:inset 0 0 0 2px #6d5628}
+.flow div{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid rgba(33,29,23,.13);font-size:14.5px;color:#776f61}
+.flow i{font-family:var(--disp);font-style:normal;color:var(--gold);min-width:30px}
+.flow b{color:#211d17}
+.ai-chips{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.ai-chip{background:var(--night-card);border:1px solid rgba(33,29,23,.13);border-radius:8px;padding:14px 16px}
+.ai-chip b{display:block;font-size:14px;color:#211d17}
+.ai-chip span{font-size:12.5px;color:#776f61}
+
+/* 轨迹 */
+.tl-cols{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:56px}
+.tl h3{font-family:var(--serif);font-size:20px;margin-bottom:20px}
+.tl .item{padding:0 0 26px 26px;position:relative;border-left:1px solid var(--ink)}
+.tl .item::before{content:'';position:absolute;left:-5px;top:7px;width:9px;height:9px;background:var(--wall);
+  border:2px solid var(--gold);border-radius:50%}
+.tl b{font-family:var(--serif);font-size:16px;display:block}
+.tl span{font-size:13.5px;color:var(--muted)}
+.notes-row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+.note-card{border:1px solid var(--hair);background:#fbfaf7;padding:28px;transition:transform .3s}
+.note-card:hover{transform:translateY(-4px)}
+.note-card b{font-family:var(--serif);font-size:17px;display:block;margin-bottom:8px}
+.note-card span{font-size:13.5px;color:var(--muted);display:block}
+.note-card .meta{font-size:11.5px;color:var(--gold);letter-spacing:2px;margin-top:16px}
+
+/* FAQ */
+.faq-wrap{max-width:780px;margin:50px auto 0}
+.faq-item{border-bottom:1px solid var(--hair)}
+.faq-q{font-family:var(--serif);font-size:18px;font-weight:700;padding:22px 0;cursor:pointer;position:relative;padding-right:40px}
+.faq-q::after{content:'+';position:absolute;right:8px;color:var(--gold);font-size:24px;font-weight:400}
+.faq-item.open .faq-q::after{content:'−'}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a p{padding:0 40px 22px 0;color:var(--muted);font-size:14.5px}
+
+/* 联系（闭幕） */
+.finale{text-align:center;padding:110px 0 100px}
+.finale h2{font-family:var(--serif);font-weight:900;font-size:clamp(36px,5.4vw,58px)}
+.finale .mail{font-family:var(--disp);font-size:clamp(18px,3vw,24px);letter-spacing:1px;color:var(--gold);
+  display:inline-block;border-bottom:1px solid var(--gold);margin:28px 0 6px;padding-bottom:4px}
+.copy-btn{font-size:12px;color:var(--muted);background:none;border:1px solid var(--hair);border-radius:999px;
+  padding:5px 14px;cursor:pointer;margin-left:10px;vertical-align:4px}
+.copy-btn:hover{color:var(--gold);border-color:var(--gold)}
+.finale p{color:var(--muted);font-size:14px}
+
+footer{border-top:1px solid var(--hair);padding:30px 0 44px;font-size:12px;color:var(--muted)}
+footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a{border-bottom:1px solid var(--hair)}
+footer a:hover{color:var(--gold)}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+#topBtn{position:fixed;right:24px;bottom:24px;z-index:90;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--ink);background:var(--wall);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:.3s}
+#topBtn.show{opacity:1;pointer-events:auto}
+#modal{position:fixed;inset:0;z-index:300;background:rgba(23,21,18,.6);display:none;align-items:center;justify-content:center;padding:20px}
+#modal.open{display:flex}
+.modal-in{background:#fbfaf7;border:1px solid var(--ink);max-width:660px;width:100%;max-height:82vh;overflow:auto;padding:38px}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.modal-head h3{font-family:var(--serif);font-size:24px}
+#modalSub{font-size:12px;letter-spacing:2px;color:var(--gold)}
+#modalClose{background:none;border:none;font-size:30px;cursor:pointer;line-height:1;color:var(--muted)}
+#modalBody h4{font-family:var(--serif);font-size:17px;margin:18px 0 8px}
+#modalBody p,#modalBody li{color:var(--muted);font-size:14.5px}
+#modalBody ul{padding-left:20px}
+
+@media(max-width:900px){
+  .exhibits,.about-grid,.vitrine,.tl-cols,.notes-row,.lab-hall,.frames-mini{grid-template-columns:1fr}
+  nav .links,nav .alts{display:none}
+  .numbers{gap:36px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ---- v9 证书 & 学习计划 ---- */
+.honor-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.honor-item{border:1px solid var(--hair);border-radius:12px;padding:12px 15px}
+.honor-item b{display:block;font-size:14.5px;line-height:1.5;margin-bottom:4px}
+.honor-item span{display:block;font-size:12.5px;line-height:1.6;opacity:.72}
+.rm-block{margin-top:60px}
+.rm-kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.rm-title{font-size:26px;line-height:1.3;margin-bottom:18px}
+.rm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px}
+.rm-item{border:1px solid var(--hair);border-radius:14px;padding:15px 17px}
+.rm-item b{display:block;font-size:15px;margin-bottom:5px}
+.rm-item p{font-size:13px;line-height:1.65;opacity:.8;margin:0}
+.rm-item .goal{display:block;margin-top:9px;font-size:12.5px;line-height:1.6;color:var(--gold)}
+.rm-note{margin-top:22px;border:1px dashed var(--hair);border-radius:14px;padding:16px 18px;font-size:13.5px;line-height:1.85;opacity:.9}
+@media(max-width:820px){.honor-grid{grid-template-columns:1fr}}
+
+/* ---- v10 跟班 ---- */
+#dogMascot{position:fixed;left:24px;bottom:24px;z-index:92;width:104px;height:104px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+#dogMascot .md-svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 18px rgba(0,0,0,.16))}
+#dogMascot #md-head,#dogMascot #md-ear-l,#dogMascot #md-ear-r,#dogMascot #md-tail,#dogMascot #md-body,#dogMascot #md-mouth,#dogMascot .md-eyes{transform-box:fill-box}
+#dogMascot #md-head{transform-origin:50% 66%}
+#dogMascot #md-body{transform-origin:50% 90%}
+#dogMascot #md-tail{transform-origin:88% 62%}
+#dogMascot #md-ear-l{transform-origin:62% 96%}
+#dogMascot #md-ear-r{transform-origin:38% 96%}
+#dogMascot .md-eyes{transform-origin:50% 50%}
+#dogMascot{transition:transform .16s}
+#dogMascot.blink .md-eyes{transform:scaleY(.08)}
+#dogMascot.poke{animation:mdPoke .42s cubic-bezier(.34,1.56,.64,1)}
+@keyframes mdPoke{0%{transform:scale(1)}30%{transform:scale(.9,1.1) rotate(-4deg)}60%{transform:scale(1.06,.94)}100%{transform:scale(1)}}
+#dogMascot #md-mouth{transition:transform .18s}
+#dogMascot #md-mouth.bark{transform:translateY(2px) scaleY(1.7)}
+.dog-talk{position:absolute;left:86px;bottom:64px;min-width:150px;max-width:230px;padding:10px 14px;border-radius:14px 14px 14px 3px;
+  background:var(--ink);color:var(--bg);font-size:13px;line-height:1.55;opacity:0;transform:translateY(6px) scale(.96);
+  transform-origin:left bottom;pointer-events:none;transition:opacity .22s,transform .22s;box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.dog-talk.show{opacity:1;transform:translateY(0) scale(1)}
+@media(max-width:820px){#dogMascot{width:78px;height:78px;left:14px;bottom:14px}.dog-talk{max-width:190px;font-size:12px}}
+
+/* ---- v10 右侧章节点导航 ---- */
+#dotnav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:88;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+#dotnav .dn-dot{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:8px;text-decoration:none}
+#dotnav .dn-dot i{width:9px;height:9px;border-radius:50%;background:currentColor;opacity:.28;transition:all .25s;display:block;flex:0 0 auto}
+#dotnav .dn-dot b{font-size:11.5px;font-weight:600;letter-spacing:.02em;white-space:nowrap;opacity:0;transform:translateX(6px);transition:all .25s;color:var(--ink)}
+#dotnav .dn-dot:hover i,#dotnav .dn-dot:focus-visible i{opacity:.7;transform:scale(1.35)}
+#dotnav .dn-dot:hover b,#dotnav .dn-dot:focus-visible b{opacity:1;transform:translateX(0)}
+#dotnav .dn-dot.on i{opacity:1;transform:scale(1.45);background:var(--cta)}
+#dotnav .dn-dot.on b{opacity:1;transform:translateX(0);color:var(--cta)}
+@media(max-width:1100px){#dotnav{display:none}}
+
+/* ---- v10 点状时间轴 ---- */
+.dottl{margin-top:44px}
+.dt-track{position:relative;display:flex;justify-content:space-between;padding:0 4px}
+.dt-track .dt-line{position:absolute;left:22px;right:22px;top:26px;height:2px;background:var(--hair);z-index:0}
+.dt-track .dt-fill{position:absolute;left:22px;top:26px;height:2px;background:var(--cta);z-index:1;transition:width .45s cubic-bezier(.4,0,.2,1)}
+.dt-dot{position:relative;z-index:2;background:none;border:0;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;flex:1;color:inherit}
+.dt-dot i{width:16px;height:16px;border-radius:50%;border:2px solid var(--hair);background:var(--bg);display:block;transition:all .25s}
+.dt-dot .dt-y{font-size:11px;letter-spacing:.06em;opacity:.55}
+.dt-dot .dt-t{font-size:13px;font-weight:600;white-space:nowrap;opacity:.8}
+.dt-dot:hover i{border-color:var(--cta);transform:scale(1.18)}
+.dt-dot.cur i{border-color:var(--cta);background:var(--cta);box-shadow:0 0 0 5px rgba(0,0,0,.07)}
+.dt-dot.cur .dt-y,.dt-dot.cur .dt-t{opacity:1;color:var(--cta)}
+.dt-panel{margin-top:26px;border:1px solid var(--hair);border-radius:16px;padding:20px 22px}
+.dt-panel .dt-badge{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cta);border:1px solid color-mix(in srgb,var(--cta) 40%,transparent);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+.dt-panel h4{font-size:19px;margin-bottom:8px}
+.dt-panel p{font-size:14.5px;line-height:1.85;opacity:.82;margin:0}
+@media(max-width:820px){.dt-dot .dt-t{display:none}.dt-track{padding:0}}
+
+/* ---- v11 插画背景层 ---- */
+html{background:var(--bg)}
+body{background:transparent}
+.bgart{position:fixed;left:0;right:0;top:-14vh;bottom:-4vh;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(250,246,236,0.32) 0%,rgba(250,246,236,0.46) 55%,rgba(250,246,236,0.32) 100%),url('assets/bg-cream.jpg') center/cover no-repeat}
+html{scroll-padding-top:92px}
+:focus-visible{outline:2.5px solid var(--cta,#4d7cfe);outline-offset:3px;border-radius:4px}
+/* ---- 打印友好（Ctrl/⌘+P 即得干净 A4） ---- */
+@media print{
+  nav,#progress,#dogMascot,.dot-nav,.dotnav,#topBtn,.theme-btn,.p-more,.p-link,.swap-links,
+  .kmask,.kpanel,.paw-rain,.bgart,.btn-o,.resume-btn,.btn-print,.copy-btn,.filter-bar,.mode-btn{display:none!important}
+  .reveal{opacity:1!important;transform:none!important}
+  .p-detail{display:block!important}
+  .proj,.card,.gcard,.note-card,.rm-block,.exhibit,.entry{box-shadow:none!important;border:1px solid #ddd!important;break-inside:avoid}
+  body{background:#fffdf6!important}
+  body,p,h1,h2,h3,h4,li,span,b,td,th{color:#111!important}
+  small,.tag,.meta,.muted,.sec-kicker{color:#555!important}
+  a{color:#111!important;text-decoration:none!important}
+  section{padding:16px 0!important;page-break-inside:avoid}
+  h2{page-break-after:avoid}
+}
+
+/* ---- v13 · 萌版中华田园犬 ---- */
+#dogMascot #md-head{transform-origin:50% 74%}
+#dogMascot #md-body{transform-origin:50% 92%}
+#dogMascot #md-tail{transform-origin:10% 96%}
+#dogMascot #md-ear-l{transform-origin:64% 96%}
+#dogMascot #md-ear-r{transform-origin:36% 96%}
+#dogMascot #md-tongue{transition:opacity .16s}
+#dogMascot #md-mouth.bark + #md-tongue{opacity:1!important}
+#dogMascot .md-svg{filter:drop-shadow(0 8px 16px rgba(0,0,0,.14))}
+
+/* ---- v13 · gallery 去掉黑底展墙 ---- */
+:root{--night:#f7f2e6; --night-card:#fffdf7}
+.night{background:var(--night);color:var(--ink)}
+.night .room-head p,.night td .d{color:var(--muted)}
+.night h2,.night h3,.night b,.night strong{color:var(--ink)}
+.mini-frame{border:1px solid rgba(33,29,23,.16)}
+.ai-chip{border:1px solid rgba(33,29,23,.14)}
+
+/* v16 · 内核展厅 */
+.core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:40px}
+.core-item{background:#fffdf7;border:1px solid var(--hair);border-radius:3px;overflow:hidden;
+  box-shadow:0 16px 40px rgba(120,100,70,.13);transition:transform .4s ease}
+.core-item:hover{transform:translateY(-6px)}
+.core-item .ph{aspect-ratio:3/4;overflow:hidden;background:#efe7d6}
+.core-item .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5)}
+.core-item:hover .ph img{filter:none}
+.core-item .plaque{padding:16px 18px 18px}
+.core-item .plaque b{display:block;font-family:var(--disp);font-size:15px;margin-bottom:6px}
+.core-item .plaque span{display:block;font-size:13px;color:var(--muted);line-height:1.8}
+.core-item .plaque em{display:block;margin-top:10px;font-style:normal;font-size:11px;
+  letter-spacing:.1em;color:var(--gold)}
+@media(max-width:900px){.core-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.core-grid{grid-template-columns:1fr}}
+
+/* v17 · 回顾展：策展前言 + 三展区 + 展签（不是通用卡片） */
+#retro .cur-note{max-width:660px;margin-bottom:16px}
+#retro .cur-note h2{font-family:var(--disp);font-size:26px;letter-spacing:.02em}
+#retro .cur-note p{margin-top:10px;font-size:15px;color:var(--muted);line-height:1.9}
+.zone{margin-top:52px;padding-top:26px;border-top:1px solid var(--hair)}
+.zone-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.zone-h .zno{font-family:var(--disp);font-size:30px;color:var(--gold);line-height:1}
+.zone-h h3{font-family:var(--disp);font-size:22px;letter-spacing:.04em}
+.zone-h em{font-style:italic;font-size:14px;color:var(--muted)}
+.zone-d{margin-top:10px;font-size:14.5px;color:var(--muted);line-height:1.9;max-width:620px}
+.zone-works{margin-top:26px;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.zone.iii .zone-works{grid-template-columns:repeat(2,1fr);max-width:640px}
+.wk{margin:0;background:#fffdf7;border:1px solid var(--hair);padding:8px 8px 0;
+  box-shadow:0 12px 30px rgba(120,100,70,.10);rotate:-.4deg}
+.wk:nth-child(2n){rotate:.45deg}
+.wk .wkimg{position:relative;aspect-ratio:3/4;overflow:hidden;background:#efe7d6}
+.wk .wkimg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.55);
+  transition:filter .45s ease,transform .6s ease}
+.wk:hover .wkimg img{filter:none;transform:scale(1.04)}
+.wk .wkn{position:absolute;left:6px;top:6px;background:#fffdf7;border:1px solid var(--hair);
+  font-family:var(--disp);font-size:11px;padding:1px 6px;letter-spacing:.08em}
+.wk figcaption{padding:12px 4px 14px}
+.wk figcaption b{font-size:13.5px;font-weight:600}
+#retro .colophon{margin-top:56px;padding-top:20px;border-top:2px solid var(--ink);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+#retro .colophon b{display:block;font-family:var(--disp);font-size:11px;letter-spacing:.18em;color:var(--muted)}
+#retro .colophon span{display:block;margin-top:5px;font-size:13.5px}
+@media(max-width:1000px){.zone-works{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){
+  .zone-works,.zone.iii .zone-works{grid-template-columns:1fr 1fr}
+  #retro .colophon{grid-template-columns:1fr 1fr}
+}
+</style>
+<meta property="og:title" content="沈炜丹个展 — 把想法做成能跑起来的东西 | SWD SOLO EXHIBITION">
+<meta property="og:description" content="嵌入式 / IoT / AI · 把想法做成实物的完整链路">
+<meta property="og:image" content="assets/styleB-chimo-v4.png">
+<meta property="og:type" content="website">
+<style>
+/* ==== v14 族特调 ==== */
+/* v14 · 画廊族：画框去深色，与纸面同语 */
+.lab-hall .mascot-frame{background:#fffdf7!important;border-color:rgba(33,29,23,.28)!important}
+.lab-hall .mascot-frame::before{border-color:#9c7c3c!important;box-shadow:inset 0 0 0 2px rgba(156,124,60,.35)!important}
+body{background:
+  radial-gradient(66vw 48vw at 12% 10%,#fffaf0 0%,transparent 60%),
+  radial-gradient(58vw 44vw at 86% 30%,#f3f0ff 0%,transparent 62%),
+  var(--wall)!important;background-attachment:fixed!important}
+
+</style>
+<link rel="stylesheet" href="assets/unified.css">
+</head>
+<body data-style="cream">
+<a class="u-skip" href="#about">跳到主要内容</a>
+<div class="bgart" aria-hidden="true"></div>
+<div id="progress"></div>
+
+<nav>
+  <div class="in">
+    <a class="brand" href="#poster">SWD GALLERY</a>
+    <div class="links">
+      <a href="#hall">镇馆之作</a><a href="#exhibits">展品</a><a href="#about">艺术家</a>
+      <a href="#skills">手艺</a><a href="#lab">AI 展厅</a><a href="#path">年表</a><a href="#faq">问答</a><a href="#finale">闭幕</a>
+    </div>
+    <div class="alts"><a href="index.html">主页</a><a href="styleA.html">漫画六格</a><a href="editorial.html">杂志专访</a><a href="studio.html">🎨 作品集</a><a href="story-yojiro.html">📖 故事</a><a href="colophon.html">✳︎ 关于这部作品</a></div>
+  </div>
+</nav>
+
+<!-- 展览海报 -->
+<header id="poster">
+  <div class="wrap center">
+    <span class="ex-tag">SOLO EXHIBITION · 个人作品展</span>
+    <h1>把想法做成<span style="color:var(--gold)">能跑起来的东西</span>
+      <span class="en">SHEN WEIDAN · EMBEDDED × AI · CLASS OF 2027</span>
+    </h1>
+    <div class="poster-meta">
+      <span><i>◆</i> 计算机科学与技术 2027 届</span>
+      <span><i>◆</i> 岭南师范学院</span>
+      <span><i>◆</i> 展址：深圳 · 可到湾区各市</span>
+      <span><i>◆</i> 展期：长期 · 在看实习与校招机会</span>
+    </div>
+  </div>
+</header>
+
+<!-- 镇馆之作 -->
+<section id="hall" class="hall" data-nav="序厅">
+  <div class="spotlight"></div>
+  <div class="wrap">
+    <div class="frame-stage">
+      <div class="mascot-frame" data-tilt>
+        <div class="mascot" data-tilt>
+          <img src="assets/styleB-chimo-v4.png" alt="沈炜丹的插画形象与她的中华田园犬">
+        </div>
+      </div>
+    </div>
+    <div class="plaque">
+      <b>《作者与她的狗》 · 2026</b>
+      AI 绘制 · 手写交互（鼠标移动时极轻微转向）
+      <br><i>◉ 移动鼠标试试 · 它会看向你</i>
+    </div>
+  </div>
+</section>
+
+<!-- 展品 -->
+<section id="exhibits" data-nav="展品">
+  <div class="wrap">
+    <div class="room-head">
+      <p class="room-no">ROOM 01 — 展品 · WORKS</p>
+      <h2>十个展位，全部真实完成</h2>
+      <p>每件"作品"都有仓库、文档或指标作证 · 点击「延伸阅读」看创作过程</p>
+    </div>
+    <div class="exhibits">
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 01 · 嵌入式 / IOT</span>
+          <h3>智能家居 IoT 系统</h3>
+          <p>STM32F103 + ESP8266 通过 MQTT 接入<b>华为云 IoT 平台</b>，完成传感器上报与远程控制双向联调，连续运行稳定。含 FreeRTOS 多任务与外设驱动。</p>
+          <div class="tags"><span class="tag">STM32</span><span class="tag">FreeRTOS</span><span class="tag">MQTT</span><span class="tag">华为云</span></div>
+        </div></div>
+        <div class="plaque-s"><span>综合材料 · C 与寄存器的艺术</span>
+          <span class="act"><a href="https://github.com/swdscsc/stm32-esp8266-huaweicloud-iot" target="_blank" rel="noopener">仓库</a><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>为什么做</h4><p>课上点亮 LED 之后，我想知道"设备怎么真正连上云"。目标是能在手机上看到家里的温湿度，并能远程关灯。</p>
+          <h4>具体做了什么</h4><ul>
+            <li>STM32F103 采集温湿度/光照，串口以 AT 指令驱动 ESP8266 联网</li>
+            <li>在华为云 IoT 平台建产品与设备，按平台格式拼 JSON payload 上报属性</li>
+            <li>订阅平台下发 topic，解析命令并回执，实现云端远程控制</li>
+            <li>FreeRTOS 拆成采集 / 上报 / 控制三个任务，用队列传递数据</li></ul>
+          <h4>踩过什么坑</h4><p>AT 指令的时序和超时最容易炸，加了重试与断线重连；Wi-Fi 掉线后要能自动恢复，这块我改了三版才稳定。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 02 · 机器学习</span>
+          <h3>信用卡风控 + SHAP</h3>
+          <p>真实信用卡数据集构建欺诈检测模型，<b>先切分后重采样</b>防数据泄露，以 AUC 为主指标；用 <b>SHAP</b> 做可解释性分析，附 MODEL_CARD 与可复现脚本。</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">sklearn</span><span class="tag">SHAP</span><span class="tag">Stacking</span></div>
+        </div></div>
+        <div class="plaque-s"><span>数据装置 · 诚实的 AUC</span>
+          <span class="act"><a href="https://github.com/swdscsc" target="_blank" rel="noopener">仓库</a><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>难点在哪</h4><p>欺诈样本只占千分之一点几，模型很容易"全猜正常"还拿高分。所以我把指标口径放在第一位。</p>
+          <h4>具体做了什么</h4><ul>
+            <li>严格先切分、后重采样，只在训练折上做 SMOTE，杜绝数据泄露</li>
+            <li>对比逻辑回归 / 随机森林 / XGBoost / Stacking 多组模型</li>
+            <li>用真实标签做 SHAP 解释，输出特征贡献图</li>
+            <li>写 MODEL_CARD（预期用途 / 指标 / 局限 / 伦理）与一键复现脚本</li></ul>
+          <h4>诚实说明</h4><p>这批数据本身难分，AUC 大约在 0.85 量级——指标可以复现，脚本和参数都在仓库里。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 03 · 计算机视觉</span>
+          <h3>工业缺陷视觉检测</h3>
+          <p>OpenCV + 卷积网络做金属表面缺陷检测，完成预处理、数据增强与调优，<b>F1 达 0.97</b>，输出可视化结果与实验报告。</p>
+          <div class="tags"><span class="tag">OpenCV</span><span class="tag">CNN</span><span class="tag">数据增强</span></div>
+        </div></div>
+        <div class="plaque-s"><span>影像系列 · 0.97 的边界</span>
+          <span class="act"><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>做了什么</h4><ul>
+            <li>OpenCV 做灰度化、去噪、对比度增强与 ROI 裁剪</li>
+            <li>样本不足时用旋转 / 翻转 / 亮度扰动做数据增强</li>
+            <li>搭建轻量 CNN 做缺陷分类，调学习率与批次大小</li></ul>
+          <h4>结果</h4><p>F1 达到 0.97；预处理前后对比、误判样本都可视化写进实验报告。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 04 · 软件工程</span>
+          <h3>学生成绩管理系统</h3>
+          <p>JavaFX + SQLite + JDBC 桌面成绩管理系统，支持增删改查、文件导入导出与统计图表，<b>独立完成开发、文档与答辩</b>。</p>
+          <div class="tags"><span class="tag">Java</span><span class="tag">JavaFX</span><span class="tag">SQLite</span><span class="tag">JDBC</span></div>
+        </div></div>
+        <div class="plaque-s"><span>交互装置 · 第一次交付</span>
+          <span class="act"><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>做了什么</h4><ul>
+            <li>JavaFX 做界面，SQLite + JDBC 做本地持久化</li>
+            <li>三类数据的增删改查与条件查询、文件导入导出、统计图表</li></ul>
+          <h4>独立完成</h4><p>从需求、编码、文档到现场答辩都是我一个人走完的——"交付给别人用"和"自己跑通"完全不是一回事。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 05 · 网络安全</span>
+          <h3>网络入侵检测</h3>
+          <p>基于公开入侵检测数据集做流量特征工程与多模型对比，输出混淆矩阵与<b>误报分析</b>——安全场景里，误报太多等于没法用。</p>
+          <div class="tags"><span class="tag">特征工程</span><span class="tag">分类模型</span><span class="tag">混淆矩阵</span></div>
+        </div></div>
+        <div class="plaque-s"><span>测绘系列 · 误报的价值</span>
+          <span class="act"><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>做了什么</h4><ul>
+            <li>对连接特征做编码与归一化，处理类别型字段</li>
+            <li>对比多种分类器，用交叉验证选模型</li>
+            <li>重点看混淆矩阵里的误报（FP）与漏报（FN）</li></ul>
+          <h4>我的判断</h4><p>入侵检测里"把正常流量判成攻击"的代价很高，所以我把误报单独拎出来分析，并在报告里说明了阈值怎么取更实用。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 06 · 自动化测试</span>
+          <h3>自动化测试框架</h3>
+          <p>搭了一套可复用的自动化测试脚手架：用例管理、批量执行、失败重试与<b>可视化报告</b>，把重复的手工回归交给脚本。</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">pytest</span><span class="tag">Selenium</span><span class="tag">CI</span></div>
+        </div></div>
+        <div class="plaque-s"><span>机械装置 · 让机器回归机器</span>
+          <span class="act"><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>为什么要做</h4><p>改一次代码就要手动点十几遍，太容易漏。所以我把用例抽成数据驱动的结构。</p>
+          <h4>做了什么</h4><ul>
+            <li>用例与数据分离，新增场景只改数据文件</li>
+            <li>失败自动重试与截图留证</li>
+            <li>生成 HTML 报告，失败用例直接定位到步骤</li></ul>
+        </div>
+      </div>
+      <div class="exhibit reveal" style="grid-column:1/-1;max-width:860px;margin:0 auto;width:100%">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 07 · AI 工程</span>
+          <h3>这个展览本身</h3>
+          <p>AI 生成个人 IP 形象，再用我自己的审美反复迭代把关；全部交互与 SVG 图标<b>手写实现</b>。同一份内容做了四种展厅设计——你正在看的是美术馆版。</p>
+          <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">SVG</span></div>
+        </div></div>
+        <div class="plaque-s"><span>混合媒介 · AI 绘制 + 手写交互</span>
+          <span class="act"><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>这套形象是怎么定下来的</h4><ul>
+            <li>先参照两位画师的风格生成两版方案，选定后<b>拿满意的图当母图反复微调</b>，不推倒重来</li>
+            <li>中途试过「九宫格换帧」和「替换瞳孔」两种动眼方案，<b>最后锁回单张原图</b>——成品最好看</li>
+            <li>交互全部手写：滚动渐入、导航高亮、项目筛选与详情弹窗、数字滚动、返回顶部</li>
+            <li>鼠标移动时整幅形象有<b>不到 1 度的极轻微转向</b>，用 CSS 独立的 rotate / translate 属性实现，不干扰入场动画</li></ul>
+        </div>
+      </div>
+    </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 08 · 嵌入式 / IOT</span>
+          <h3>ESP32 嵌入式开发综合实训</h3>
+          <p>基于 ESP32 + ESP-IDF 完成一次完整的组件化嵌入式开发，把驱动 → RTOS → 图形界面 → 联网这条链路走通。</p>
+          <div class="tags"><span class="tag">ESP32</span><span class="tag">ESP-IDF</span><span class="tag">FreeRTOS</span><span class="tag">LVGL</span><span class="tag">I2C</span></div>
+        </div></div>
+        <div class="plaque-s"><span>ESP32 / IDF</span>
+          <span class="act"><a href="https://github.com/swdscsc" target="_blank" rel="noopener">作品</a><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>为什么做</h4><p>课上点亮 LED 之后，我想知道一块 MCU 到底能把多少东西塞进去还能稳定跑。所以给自己定的目标是：一个板子，同时读传感器、刷屏幕、连 Wi-Fi。</p>
+          <h4>具体做了什么</h4><ul>
+            <li>组件化开发 LED / KEY / LCD / WiFi 驱动，FreeRTOS 下做多任务调度</li>
+            <li>QMI8658 三轴传感器经 I2C 采集 X / Y / Z 姿态角，LVGL 实时刷新到 LCD</li>
+            <li>用图片取模工具生成点阵图、做自定义字体</li>
+            <li>WiFi 接入心知天气 API，把天气显示到屏幕上</li></ul>
+          <h4>踩过什么坑</h4><p>LVGL 刷新和传感器采集抢同一批资源，屏幕会卡成一帧一帧。后来把 UI 刷新单独拆成一个任务、用队列传数据才顺起来——这是我第一次真切体会到任务优先级。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 09 · 网络安全 / WEB</span>
+          <h3>AES 加解密演示系统</h3>
+          <p>课程里学完分组密码，我把它做成了一个真正能给别人用的前后端分离 Web 应用：后端三个 REST 接口，前端可视化加解密。</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">Vue</span><span class="tag">REST</span><span class="tag">密码学</span></div>
+        </div></div>
+        <div class="plaque-s"><span>Flask / Vue</span>
+          <span class="act"><a href="https://github.com/swdscsc" target="_blank" rel="noopener">作品</a><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>为什么做</h4><p>密码学课上一个尴尬的事实是：听懂原理 ≠ 能写出来。我想把这个等号补上，于是写了可以现场输入明文、生成密钥、加解密对照的小系统。</p>
+          <h4>具体做了什么</h4><ul>
+            <li>Flask 提供 /api/generate-key、/api/encrypt、/api/decrypt 三个 POST 接口，PKCS7 填充 + Base64 编解码，flask-cors 处理跨域</li>
+            <li>aes_utils.py 独立实现 CBC 模式：IV 随机生成，IV 与密文拼接后再 Base64</li>
+            <li>前端 Vue2 + Element-UI + Axios（vue-cli 4.5）做交互页面</li>
+            <li>参数校验：密钥长度只认 128 / 192 / 256，Base64 格式校验，异常统一返回 code / message / data</li></ul>
+          <h4>踩过什么坑</h4><p>最难的不是加密本身，而是两端对不齐：填充、编码、IV 的处理只要有一处不一致就解不出来。我专门写了一组固定测试向量做前后端互测，才确认加解密真正对齐。</p>
+        </div>
+      </div>
+      <div class="exhibit reveal">
+        <div class="art"><div class="art-in">
+          <span class="cat">EXHIBIT 10 · 数据 / 建模</span>
+          <h3>"大湾区杯"数学建模竞赛 · 优胜奖</h3>
+          <p>带领组员在两周内完成 1000+ 条经济数据的清洗、成本差异分析与时序预测建模，独立输出技术方案与分析报告。</p>
+          <div class="tags"><span class="tag">数学建模</span><span class="tag">数据清洗</span><span class="tag">时序预测</span><span class="tag">团队协作</span></div>
+        </div></div>
+        <div class="plaque-s"><span>技术负责人</span>
+          <span class="act"><a href="https://github.com/swdscsc" target="_blank" rel="noopener">作品</a><button class="p-more">延伸阅读</button></span></div>
+        <div class="p-detail">
+          <h4>为什么做</h4><p>想知道课上学的数据方法，放在真实、脏、口径不一致的数据上还灵不灵。竞赛是成本最低的一次验证机会。</p>
+          <h4>具体做了什么</h4><ul>
+            <li>1000+ 条经济数据清洗：缺失值与异常处理、口径统一</li>
+            <li>成本差异分析 + 时序预测模型搭建与多轮迭代</li>
+            <li>独立撰写技术方案与分析报告，负责可行性论证与方案迭代</li></ul>
+          <h4>踩过什么坑</h4><p>第一次真切感受到「结论必须能被别人复算出来」。从那以后我的每个项目都留可复现脚本和参数，而不是只留一张结果截图。</p>
+        </div>
+      </div>
+
+    <div class="numbers">
+      <div><b data-count="7">0</b><span>真实项目</span></div>
+      <div><b data-count="15">0</b><span>GitHub 仓库</span></div>
+      <div><b data-count="160">0</b><span>已修学分</span></div>
+      <div><b data-count="83.32">0</b><span>历年均分</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 艺术家（夜间展厅） -->
+
+<section id="retro">
+  <div class="wrap">
+    <div class="cur-note">
+      <h2>策展前言</h2>
+      <p>这次展览不按时间排，按<b>她是怎么长起来的</b>排。三个展区，十件展品，全部来自她的这几年。</p>
+    </div>
+    <div class="zone">
+      <div class="zone-h"><span class="zno">Ⅰ</span><h3>出发</h3><em>深圳 · 很快很亮的一座城</em></div>
+      <p class="zone-d">她在这里长大、上学。天桥下的车流像一条发光的河，她那时候就想：以后要在这里做点什么。</p>
+      <div class="zone-works">
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-01.jpg" alt="天桥上看车流" loading="lazy"><span class="wkn">01</span></div><figcaption><b>天桥上看车流</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-02.jpg" alt="那年夏天的风筝" loading="lazy"><span class="wkn">02</span></div><figcaption><b>那年夏天的风筝</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-03.jpg" alt="第一次穿上制服" loading="lazy"><span class="wkn">03</span></div><figcaption><b>第一次穿上制服</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="zone">
+      <div class="zone-h"><span class="zno">Ⅱ</span><h3>生长</h3><em>湛江 · 满城都是树和公园</em></div>
+      <p class="zone-d">和深圳完全不同的节奏。她在这里学会一件事：树是一年一年长高的，人也是。</p>
+      <div class="zone-works">
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-04.jpg" alt="家教与台灯" loading="lazy"><span class="wkn">04</span></div><figcaption><b>家教与台灯</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-05.jpg" alt="穿过榕树的路" loading="lazy"><span class="wkn">05</span></div><figcaption><b>穿过榕树的路</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-06.jpg" alt="走廊里快步走" loading="lazy"><span class="wkn">06</span></div><figcaption><b>走廊里快步走</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-07.jpg" alt="开始举铁" loading="lazy"><span class="wkn">07</span></div><figcaption><b>开始举铁</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-08.jpg" alt="实验室的下午" loading="lazy"><span class="wkn">08</span></div><figcaption><b>实验室的下午</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="zone">
+      <div class="zone-h"><span class="zno">Ⅲ</span><h3>回来</h3><em>深圳 · 又回到起点</em></div>
+      <p class="zone-d">绕了一圈好像在原地。但她说：我已经不是原来那个人了。</p>
+      <div class="zone-works">
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-09.jpg" alt="3 月到 9 月" loading="lazy"><span class="wkn">09</span></div><figcaption><b>3 月到 9 月</b></figcaption></figure>
+        <figure class="wk reveal"><div class="wkimg"><img src="assets/art/sketch/sketch-10.jpg" alt="回到深圳" loading="lazy"><span class="wkn">10</span></div><figcaption><b>回到深圳</b></figcaption></figure>
+      </div>
+    </div>
+    <div class="colophon">
+      <div><b>展期</b><span>长期开放</span></div>
+      <div><b>展品</b><span>10 件 · 综合媒材</span></div>
+      <div><b>艺术家</b><span>沈炜丹</span></div>
+      <div><b>说明</b><span>本展区展品均可点开查看说明</span></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="about" class="night night-room" data-nav="关于">
+  <div class="wrap">
+    <div class="room-head">
+      <p class="room-no" style="color:var(--gold)">ROOM 02 — 艺术家 · ABOUT</p>
+      <h2 style="color:#211d17">不是天赋型选手，但每一步都想亲手跑通</h2>
+    </div>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>沈炜丹，岭南师范学院计算机科学与技术专业 <b>2027 届</b>本科生，现居深圳。修满 <b>160 学分</b>，历年平均成绩 <b>83.32</b>，通过 <b>CET-6</b>，能顺畅阅读英文技术手册与芯片 Datasheet。</p>
+        <p>她享受<b>从想法到实物</b>的完整链路：查 datasheet、焊电路、调 MQTT、训模型、写页面。每个项目都做到"能交付"：有仓库、有文档、有可复现的指标。</p>
+        <p>技术之外，她是校大学生艺术团<b>器乐队队长</b>，统筹 50+ 名队员、组织 8 场校级活动。生活里自己做饭、养一只中华田园犬——它也挂在展厅正中央。</p>
+        <div class="frames-mini">
+          <div class="mini-frame"><b data-count="7">0</b><span>真实完成的项目</span></div>
+          <div class="mini-frame"><b data-count="8">0</b><span>组织的校级活动</span></div>
+          <div class="mini-frame"><b data-count="50">0</b><span>乐队统筹队员</span></div>
+          <div class="mini-frame"><b data-count="15">0</b><span>GitHub 公开仓库</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <h3 style="font-family:var(--serif);font-size:19px;margin-bottom:16px">艺术家自述 · 四个习惯</h3>
+        <div class="ways">
+          <div class="way"><span class="n">01</span><div><b>先搞懂原理再动手</b><span>不靠"试试看"，用示波器、万用表、日志把现象验证清楚再改代码。</span></div></div>
+          <div class="way"><span class="n">02</span><div><b>每个项目都留可复现产出</b><span>脚本、参数、README、报告一并进仓库。</span></div></div>
+          <div class="way"><span class="n">03</span><div><b>指标诚实</b><span>宁可写"难分数据 AUC 0.85"，也不造满分假象。</span></div></div>
+          <div class="way"><span class="n">04</span><div><b>不会就查一手资料</b><span>芯片看 Datasheet，框架看官方文档。</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 手艺 -->
+<section id="skills" data-nav="手艺">
+  <div class="wrap">
+    <div class="room-head">
+      <p class="room-no">ROOM 03 — 手艺 · CRAFT</p>
+      <h2>技能展柜，诚实标注</h2>
+    </div>
+    <div class="vitrine">
+      <div class="vit reveal"><b>🔧 嵌入式</b><ul><li>STM32 / ESP32 外设驱动</li><li>FreeRTOS 多任务与队列</li><li>MQTT 上云、AT 指令</li><li>示波器 / 万用表调试</li></ul></div>
+      <div class="vit reveal"><b>🤖 AI / 数据</b><ul><li>sklearn 建模与调参</li><li>类别不平衡处理</li><li>SHAP 可解释性</li><li>指标口径与评估报告</li></ul></div>
+      <div class="vit reveal"><b>🧱 软件工程</b><ul><li>Java / JavaFX / SQLite</li><li>Git 分支与协作</li><li>pytest / Selenium</li><li>文档与答辩</li></ul></div>
+      <div class="vit reveal"><b>🛠 工具</b><ul><li>VS Code / Keil / CubeMX</li><li>Linux / Docker</li><li>Wireshark</li><li>Figma</li></ul></div>
+    </div>
+    <div class="reveal" style="margin-top:26px">
+      <p class="room-no" style="margin-bottom:12px">证书 &amp; 荣誉 · CERTIFICATES</p>
+      <div class="honor-grid">
+        <div class="honor-item"><b>HarmonyOS 应用开发者基础认证</b><span>华为开发者学堂 · 有效至 2027.10</span></div>
+        <div class="honor-item"><b>大学英语六级 CET-6 443</b><span>2025.12 ｜ CET-4 已过</span></div>
+        <div class="honor-item"><b>大湾区杯粤港澳数学建模竞赛 优胜奖</b><span>2025 · 技术负责人</span></div>
+        <div class="honor-item"><b>挑战杯大学生课外学术科技作品竞赛 二等奖</b><span>2025 · 第十届</span></div>
+        <div class="honor-item"><b>中国国际创新大赛（互联网"+"）三等奖</b><span>2024</span></div>
+        <div class="honor-item"><b>普通话二级甲等 · C1 驾照</b><span>院文艺积极分子 · 院级优秀团队 · 优秀调研报告 · 校歌手大赛二等奖</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI 展厅 -->
+<section id="lab" class="night night-room" data-nav="展厅">
+  <div class="wrap">
+    <div class="room-head">
+      <p class="room-no" style="color:var(--gold)">ROOM 04 — AI 展厅</p>
+      <h2 style="color:#211d17">未来属于会用 AI 的人</h2>
+      <p>这个展览本身就是一次 AI 实践：形象由 AI 生成、图标由我手写 SVG、交互代码由我理解原理后亲手实现。</p>
+    </div>
+    <div class="lab-hall">
+      <div class="mascot-frame reveal" data-tilt>
+        <div class="mascot" data-tilt>
+          <img class="fit" src="assets/styleB-detail.jpg" alt="同一组奶油水彩形象 · 半身">
+        </div>
+        <div class="plaque"><b>《奶油色的下午》 · 2026</b>AI 水彩 · 手写交互<br><i>◉ 鼠标移动时轻微转向</i></div>
+      </div>
+      <div class="reveal">
+        <div class="flow">
+          <div><i>01</i><b>拆需求</b>先想清楚要什么效果</div>
+          <div><i>02</i><b>AI 出素材</b>同一形象批量出图</div>
+          <div><i>03</i><b>手写交互</b>渐入 · 延伸阅读 · 微跟随</div>
+          <div><i>04</i><b>手写交互</b>理解原理后自己实现</div>
+        </div>
+        <div class="ai-chips">
+          <div class="ai-chip"><b>形象微跟随</b><span>CSS 独立 rotate / translate</span></div>
+          <div class="ai-chip"><b>lerp 平滑</b><span>视线连续不跳变</span></div>
+          <div class="ai-chip"><b>纯 SVG 骨骼</b><span>中华田园犬手写绘制</span></div>
+          <div class="ai-chip"><b>四种展厅</b><span>同一内容四种气质</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 年表 -->
+<section id="path" data-nav="年表">
+  <div class="wrap">
+    <div class="room-head">
+      <p class="room-no">ROOM 05 — 年表 · TIMELINE</p>
+      <h2>不是天赋型，是一路折腾过来的</h2>
+    </div>
+    <div class="tl-cols">
+      <div class="tl reveal">
+        <h3>技术线</h3>
+        <div class="item"><b>2023 · 入学，第一次摸单片机</b><span>点亮第一个 LED 花了整晚，但从此入坑嵌入式</span></div>
+        <div class="item"><b>2024 · 外设与协议</b><span>串口、I2C、SPI 一个一个啃，学会看 Datasheet 而不是抄例程</span></div>
+        <div class="item"><b>2025 · STM32 + 华为云 IoT 落地</b><span>第一次把设备真正连上云，端—云联调跑通那一刻特别爽</span></div>
+        <div class="item"><b>2025 · 转向机器学习</b><span>风控模型 + SHAP 可解释性，学会"模型要能解释清楚"</span></div>
+        <div class="item"><b>2026 · 把 AI 用在自己身上</b><span>AI 生成形象、手写交互代码——把自己变成"会用 AI 的工程师"</span></div>
+      </div>
+      <div class="tl reveal">
+        <h3>另一条线</h3>
+        <div class="item"><b>2024 — 至今 · 校艺术团器乐队队长</b><span>统筹 50+ 名队员的日常排练与演出安排</span></div>
+        <div class="item"><b>8 场 · 校级活动</b><span>从节目编排、场地协调到现场突发处理，全程负责</span></div>
+        <div class="item"><b>我学到的</b><span>把一群人的节奏调到一起，且在出状况时顶上去</span></div>
+        <div class="item"><b>生活里</b><span>自己做饭、养一只中华田园犬——它陪我熬过好几个调 bug 的夜</span></div>
+      </div>
+    </div>
+    <div class="notes-row">
+      <div class="note-card reveal"><b>MQTT 上云踩坑记</b><span>AT 指令时序和超时最要命；断线重连写在任务里而不是中断里；payload 字段名必须和物模型完全一致。</span><span class="meta">嵌入式 · 6 MIN</span></div>
+      <div class="note-card reveal"><b>SHAP 到底在解释什么</b><span>它不是"归因真相"，而是模型视角下的贡献分配；解释对象必须用真实标签。</span><span class="meta">机器学习 · 8 MIN</span></div>
+      <div class="note-card reveal"><b>STM32 多任务怎么拆</b><span>采集、上报、控制拆成三个任务，用队列而不是全局变量；栈要给足否则莫名 HardFault。</span><span class="meta">RTOS · 5 MIN</span></div>
+    </div>
+    <div data-dottl></div>
+    <div class="rm-block reveal">
+      <p class="rm-kicker">接下来我要啃的 / NEXT 90 DAYS</p>
+      <h3 class="rm-title">不是天赋型，所以我把路线写下来</h3>
+      <div class="rm-grid">
+        <div class="rm-item"><b>FreeRTOS 深水区</b><p>内存管理 · 中断优先级 · 死锁与优先级反转排查</p><span class="goal">🎯 完成标志：写一个会死锁的小工程，再用 trace 工具定位并修好，配上笔记</span></div>
+        <div class="rm-item"><b>Linux 驱动与设备树</b><p>字符设备驱动框架 · DTB 基础 · 交叉编译</p><span class="goal">🎯 完成标志：在开发板上跑通一个能被 open/read/write 的驱动模块</span></div>
+        <div class="rm-item"><b>CAN / RS485 / Modbus</b><p>工业现场最常用的三种总线协议</p><span class="goal">🎯 完成标志：两块板之间用 Modbus 完成一次稳定收发并记录波形</span></div>
+        <div class="rm-item"><b>CMake + C 单元测试</b><p>Unity / Ceedling，给 C 代码接上测试</p><span class="goal">🎯 完成标志：现有 STM32 工程的关键模块有可跑的单测</span></div>
+        <div class="rm-item"><b>Git 协作 & GitHub Actions</b><p>PR 流程 · CI 自动跑测试 · 语义化提交</p><span class="goal">🎯 完成标志：某个仓库 push 即自动 lint + test + 出报告徽章</span></div>
+        <div class="rm-item"><b>LLM 应用工程</b><p>RAG · Agent 工作流 · Prompt 版本管理</p><span class="goal">🎯 完成标志：做一个能查自己知识库的问答小工具并写清评测方法</span></div>
+        <div class="rm-item"><b>算法与数据结构每日一题</b><p>针对笔试：链表 / 树 / DP / 图</p><span class="goal">🎯 完成标志：连续 60 天，错题归档成自己的模板本</span></div>
+        <div class="rm-item"><b>每周精读一份英文 Datasheet / RFC</b><p>把 CET-6 变成真正能用的能力</p><span class="goal">🎯 完成标志：产出一份中文要点笔记 + 一个小验证实验</span></div>
+      </div>
+      <div class="rm-note">
+        <b>学完了能交付什么：</b>
+        ① 一周内跑通「STM32 外设 → RTOS → MQTT → 云」链路，交付可复现 demo；
+        ② 数据类任务做到「清洗 → 建模 → 指标 → 可解释报告」闭环，而不是交一张截图；
+        ③ 把每次踩坑沉淀成文档和第二个人能照着做的 SOP。
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:color-mix(in srgb,var(--wall-d) 55%,transparent);padding:90px 0" data-nav="问答">
+  <div class="wrap">
+    <div class="room-head" style="padding-top:0">
+      <p class="room-no">ROOM 06 — 问答 · Q&A</p>
+      <h2>先把话说清楚</h2>
+    </div>
+    <div class="faq-wrap reveal">
+      <div class="faq-item"><div class="faq-q">毕业设计目前做到哪一步了？</div>
+        <div class="faq-a"><p>开题与方案阶段（在研）。我做的是方案层的工作：选题、器件选型、系统框图、控制策略设计。<b>还没有做出实物</b>，所以简历和这里我都不会写成"已完成"，也不会编造运行指标。</p></div></div>
+      <div class="faq-item"><div class="faq-q">为什么既做嵌入式又做 AI？</div>
+        <div class="faq-a"><p>因为它们是同一条链路的两端：嵌入式让我知道数据是怎么从真实世界采集上来的，AI 让我知道这些数据还能变成什么判断。我不想只站在一端。</p></div></div>
+      <div class="faq-item"><div class="faq-q">有企业实习经历吗？</div>
+        <div class="faq-a"><p>暂时没有。所以我把每个课程项目和个人项目都做到"能交付"的程度：有仓库、有文档、有可复现的指标。这也是我现在最想补上的一块。</p></div></div>
+      <div class="faq-item"><div class="faq-q">英语水平怎么样？</div>
+        <div class="faq-a"><p>通过 CET-6，能顺畅阅读英文技术手册、芯片 Datasheet 和官方文档，写英文注释和 README 没问题。</p></div></div>
+      <div class="faq-item"><div class="faq-q">到岗时间和地点？</div>
+        <div class="faq-a"><p>本科 2027 届，现居深圳。实习与校招机会都在看，深圳及湾区城市可以到岗，时间可以配合。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 闭幕 -->
+<section id="finale" class="finale" data-nav="尾声">
+  <div class="wrap">
+    <p class="room-no">CLOSING — 闭幕</p>
+    <h2>来聊聊？<br>展览常年开放。</h2>
+    <div><a class="mail" href="mailto:3103141093@qq.com">3103141093@qq.com</a><button class="copy-btn" data-copy="3103141093@qq.com">复制</button></div>
+    <p>GitHub：<a href="https://github.com/swdscsc" target="_blank" rel="noopener" style="border-bottom:1px solid var(--gold)">github.com/swdscsc</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap in">
+    <span>© 2026 沈炜丹个展 · SWD GALLERY · CURATED & BUILT WITH AI</span>
+    <span><a href="index.html">主页</a> · <a href="styleA.html">漫画六格</a> · <a href="editorial.html">杂志专访</a> · <a href="studio.html">作品集</a> · <a href="colophon.html">关于这部作品</a></span>
+  </div>
+</footer>
+
+
+<!-- 中华田园犬跟班（取自 oil-motion + page-mascot 的交互思路，纯 SVG 骨骼 + 程序插值） -->
+<div id="dogMascot" role="button" tabindex="0" aria-label="她家的中华田园犬，点一下会和它互动">
+  <div id="dogTalk" class="dog-talk"></div>
+  <svg class="md-svg" viewBox="0 0 120 120" aria-hidden="true">
+    <ellipse cx="60" cy="108" rx="27" ry="5.2" fill="rgba(0,0,0,.10)"/>
+    <!-- 小卷尾（中华田园犬的卷尾，做小做翘，不像松鼠） -->
+    <g id="md-tail">
+      <path d="M84 88c9 1 14-7 11-13-2-5-9-6-12-1-2 4 2 8 6 6" fill="none"
+            stroke="#e8a94e" stroke-width="6.5" stroke-linecap="round"/>
+      <path d="M86 74c4 1 7-2 6-5" fill="none" stroke="#f6c274" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+    </g>
+    <g id="md-body">
+      <ellipse cx="60" cy="83" rx="25" ry="21" fill="#ecb25c"/>
+      <ellipse cx="60" cy="89" rx="14" ry="14" fill="#fff6e2"/>
+      <ellipse cx="47" cy="102" rx="9" ry="6" fill="#fff6e2"/>
+      <ellipse cx="73" cy="102" rx="9" ry="6" fill="#fff6e2"/>
+      <!-- 红项圈 + 骨头挂牌 -->
+      <path d="M47 77q13 10 26 0" fill="none" stroke="#ff4d4d" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="60" cy="84.5" r="4.4" fill="#ffd400" stroke="#3a2a1c" stroke-width="1.4"/>
+    </g>
+    <g id="md-head">
+      <g id="md-ear-l"><g transform="rotate(-16 41 27)">
+        <ellipse cx="41" cy="27" rx="10" ry="14" fill="#d9943f"/>
+        <ellipse cx="42" cy="29" rx="5" ry="8.5" fill="#f7c9ab" opacity=".9"/>
+      </g></g>
+      <g id="md-ear-r"><g transform="rotate(16 79 27)">
+        <ellipse cx="79" cy="27" rx="10" ry="14" fill="#d9943f"/>
+        <ellipse cx="78" cy="29" rx="5" ry="8.5" fill="#f7c9ab" opacity=".9"/>
+      </g></g>
+      <!-- 大头（Q 版比例） -->
+      <ellipse cx="60" cy="49" rx="29" ry="26" fill="#ecb25c"/>
+      <ellipse cx="60" cy="38" rx="16" ry="10" fill="#f3c67a" opacity=".5"/>
+      <!-- 口鼻白区 + 腮红 -->
+      <ellipse cx="60" cy="58" rx="15" ry="12" fill="#fff6e2"/>
+      <ellipse cx="36" cy="56" rx="6.5" ry="3.8" fill="#ff9aa6" opacity=".35"/>
+      <ellipse cx="84" cy="56" rx="6.5" ry="3.8" fill="#ff9aa6" opacity=".35"/>
+      <!-- 嘴 + 舌头（叫的时候吐出来） -->
+      <path id="md-mouth" d="M54 63q6 6 12 0" fill="none" stroke="#7a5a3a" stroke-width="2.2" stroke-linecap="round"/>
+      <path id="md-tongue" d="M56.5 64.5q3.5 7 7 0q-3.5 2.5-7 0z" fill="#ff8fa3" opacity="0"/>
+      <!-- 小小的黑嘴套 / 鼻头 -->
+      <ellipse cx="60" cy="53.6" rx="5" ry="3.6" fill="#3a2a1c"/>
+      <ellipse cx="58.2" cy="52.4" rx="1.4" ry="1" fill="#fffdf6" opacity=".55"/>
+      <!-- 大眼睛 + 双高光 -->
+      <g class="md-eyes">
+        <ellipse cx="47" cy="45" rx="7.4" ry="8.2" fill="#fffdf6"/>
+        <ellipse cx="73" cy="45" rx="7.4" ry="8.2" fill="#fffdf6"/>
+        <circle id="md-pupil-l" cx="47" cy="46" r="4.3" fill="#33241a"/>
+        <circle id="md-pupil-r" cx="73" cy="46" r="4.3" fill="#33241a"/>
+        <circle cx="45.2" cy="43.4" r="1.8" fill="#fffdf6" opacity=".95"/>
+        <circle cx="71.2" cy="43.4" r="1.8" fill="#fffdf6" opacity=".95"/>
+        <circle cx="49" cy="49" r="1" fill="#fffdf6" opacity=".7"/>
+        <circle cx="75" cy="49" r="1" fill="#fffdf6" opacity=".7"/>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<button id="topBtn" aria-label="回到顶部">↑</button>
+<div id="modal" role="dialog" aria-modal="true">
+  <div class="modal-in">
+    <div class="modal-head"><div><h3 id="modalTitle">详情</h3><span id="modalSub"></span></div><button id="modalClose">×</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/mascot.js"></script>
+<script src="assets/timeline.js"></script>
+<script src="assets/extras.js"></script>
+<script src="assets/delight.js" defer></script>
+<script src="assets/motion.js" defer></script>
+<script src="assets/handdrawn.js" defer></script>
+</body>
+</html>

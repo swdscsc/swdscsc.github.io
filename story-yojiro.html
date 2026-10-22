@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>断断续续 · 人物与符号 — 沈炜丹</title>
+<meta name="description" content="把几年经历画成九张抽象的图。一条可以走进去的长卷。">
+<meta property="og:title" content="断断续续 · 人物与符号">
+<meta property="og:description" content="九张图，八年。你可以滚下去。">
+<meta property="og:image" content="assets/art/anime/anime-10.jpg">
+<meta property="og:type" content="website">
+  <meta name="robots" content="noindex, nofollow, noimageindex">
+  <meta name="googlebot" content="noindex">
+<meta name="theme-color" content="#f6f0e4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f7f0e0; --card:#fffdf8; --ink:#241f18; --muted:#7a6a56; --warm:#e8a33c;
+  --stroke:rgba(74,58,42,.18); --accent:#c8102e;
+  --ease:cubic-bezier(.2,.75,.25,1); --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:var(--bg);
+  background-image:
+    radial-gradient(64vw 48vw at 15% 6%,#fff6f0,transparent 58%),
+    radial-gradient(56vw 44vw at 85% 30%,#eef4ff,transparent 60%);
+  background-attachment:fixed;line-height:1.85;font-size:16px;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+
+/* ---------- 顶部细导航 ---------- */
+#top{position:fixed;top:0;left:0;right:0;z-index:120;height:48px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+  background:rgba(246,240,228,.82);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--stroke);font-size:13px;
+  transition:transform .3s var(--ease)}
+#top .l{font-weight:700;letter-spacing:.02em}
+#top .l em{font-style:normal;color:var(--accent)}
+#top .r{display:flex;gap:16px;color:var(--muted)}
+#top .r a{text-decoration:none}
+#top .r a:hover{color:var(--ink)}
+/* 进度细线 */
+#line{position:fixed;top:0;left:0;height:2px;width:0;z-index:121;
+  background:linear-gradient(90deg,#f0b95a,var(--accent))}
+
+/* ---------- 序 ---------- */
+#pre{min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 24px 40px;position:relative}
+#pre .k{font-size:12px;letter-spacing:.34em;color:var(--muted);margin-bottom:26px}
+#pre h1{font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-size:clamp(52px,10vw,104px);line-height:.96;letter-spacing:-.03em;font-weight:700}
+#pre h1 em{font-style:italic;color:var(--accent)}
+#pre .yr{margin-top:20px;font-family:Georgia,serif;font-style:italic;
+  font-size:clamp(15px,2vw,19px);color:var(--muted);letter-spacing:.06em}
+#pre .lede{max-width:520px;margin:34px auto 0;font-size:15.5px;color:var(--muted)}
+#pre .hint{margin-top:52px;font-size:12px;color:var(--warm);letter-spacing:.16em;font-weight:700;
+  animation:bob 2.4s var(--ease) infinite}
+@keyframes bob{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(9px);opacity:1}}
+
+/* ---------- 长卷 ---------- */
+#scroll{max-width:1080px;margin:0 auto;padding:0 24px 40px;position:relative}
+/* 中间那条背白的“路” */
+#scroll::before{display:none;content:'';position:absolute;left:50%;top:0;bottom:0;width:1px;
+  transform:translateX(-.5px);
+  background:repeating-linear-gradient(180deg,var(--stroke) 0 6px,transparent 6px 14px)}
+
+.beat{position:relative;padding:12vh 0;display:grid;
+  grid-template-columns:1fr 92px 1fr;align-items:center;gap:0}
+.beat .fig{position:relative}
+.beat .fig .mask{border-radius:4px;overflow:hidden;background:#eee7d8;
+  box-shadow:0 20px 50px rgba(120,110,90,.20),0 2px 8px rgba(120,110,90,.10);
+  border:1px solid rgba(74,58,42,.08)}
+.beat .fig img{width:100%;aspect-ratio:3/4;object-fit:cover;
+  filter:grayscale(.34) contrast(1.02) saturate(1.04);
+  transform:scale(1.05);
+  transition:filter 1.1s var(--ease),transform 1.3s var(--ease-out)}
+.beat.in .fig img{filter:grayscale(0) contrast(1);transform:scale(1)}
+/* 出入场的轻微上浮 */
+.beat .fig,.beat .txt{opacity:0;transform:translateY(38px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease-out)}
+.beat.in .fig,.beat.in .txt{opacity:1;transform:none}
+.beat.in .txt{transition-delay:.12s}
+
+/* 中间圆点 */
+.beat .dot{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px}
+.beat .dot i{width:11px;height:11px;border-radius:50%;background:var(--card);
+  border:2px solid var(--muted);transition:.6s var(--ease)}
+.beat.in .dot i{background:var(--warm);border-color:var(--warm);
+  box-shadow:0 0 0 8px rgba(232,163,60,.18)}
+.beat .dot span{font-family:Georgia,serif;font-style:italic;font-size:12px;
+  color:var(--muted);writing-mode:vertical-rl;letter-spacing:.1em}
+
+/* 文字 */
+.beat .txt{padding:0 44px}
+.beat:nth-child(odd) .fig{grid-column:1}
+.beat:nth-child(odd) .dot{grid-column:2}
+.beat:nth-child(odd) .txt{grid-column:3}
+.beat:nth-child(even) .txt{grid-column:1;text-align:right}
+.beat:nth-child(even) .dot{grid-column:2}
+.beat:nth-child(even) .fig{grid-column:3}
+.beat h2{font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-size:clamp(24px,3.2vw,34px);line-height:1.24;letter-spacing:-.01em;font-weight:700}
+.beat h2 em{font-style:italic;color:var(--accent)}
+.beat .when{margin-top:10px;font-size:11.5px;letter-spacing:.2em;color:var(--muted)}
+.beat p{margin-top:16px;font-size:15px;color:#4b4134;max-width:420px}
+.beat:nth-child(even) p{margin-left:auto}
+
+/* 一张特别的宽图（跑道） */
+.beat.flat{grid-template-columns:1fr;padding:9vh 0}
+.beat.flat .fig{grid-column:1/-1 !important;order:2}
+.beat.flat .txt{grid-column:1/-1 !important;order:1;text-align:center;padding:0 0 26px}
+.beat.flat .txt p{margin:14px auto 0}
+.beat.flat .dot{display:none}
+.beat.flat .fig img{aspect-ratio:16/9}
+
+/* 结尾那一格：空白 */
+.beat.blank .fig .mask{background:#fffdf6;box-shadow:0 18px 44px rgba(122,96,70,.1)}
+.beat.blank .fig img{filter:grayscale(1) brightness(1.02)}
+
+/* ---------- 落款 ---------- */
+#coda{max-width:660px;margin:0 auto;padding:14vh 24px 18vh;text-align:center}
+#coda .rule{width:52px;height:1px;background:var(--muted);margin:0 auto 40px;opacity:.5}
+#coda p{font-size:16.5px;color:#3d3428;line-height:2.05}
+#coda p+p{margin-top:22px}
+#coda .sig{margin-top:46px;font-family:Georgia,serif;font-style:italic;
+  font-size:15px;color:var(--muted)}
+#coda .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:46px}
+#coda .row a{text-decoration:none;padding:11px 22px;border-radius:999px;
+  border:1.5px solid var(--ink);font-size:13.5px;font-weight:700;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+#coda .row a:hover{transform:translateY(-3px);box-shadow:4px 4px 0 var(--ink)}
+#coda .row a.pri{background:var(--ink);color:var(--bg)}
+
+/* ---------- 移动端 ---------- */
+@media(max-width:820px){
+  #scroll::before{left:14px}
+  .beat{grid-template-columns:34px 1fr;gap:0;padding:7vh 0}
+  .beat .dot{grid-column:1 !important}
+  .beat .fig{grid-column:2 !important;order:1}
+  .beat .txt{grid-column:2 !important;order:2;text-align:left !important;
+    padding:20px 0 0 !important;margin-left:0 !important}
+  .beat:nth-child(even) .txt{text-align:left}
+  .beat p{margin-left:0 !important}
+  .beat.flat{padding:5vh 0}
+  .beat .fig img{aspect-ratio:3/2}
+}
+
+/* Rough.js 式手绘圈注（纯 SVG 实现） */
+h1 em{position:relative;display:inline-block}
+h1 em svg.rough{position:absolute;left:-10%;top:-16%;width:120%;height:132%;overflow:visible;pointer-events:none}
+h1 em svg.rough path{fill:none;stroke:var(--accent,#c8102e);stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:560;stroke-dashoffset:560;opacity:.8;
+  animation:roughDraw 1s cubic-bezier(.16,1,.3,1) 1s forwards}
+@keyframes roughDraw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){h1 em svg.rough path{animation:none;stroke-dashoffset:0}}
+</style>
+<link rel="stylesheet" href="assets/unified.css">
+</head>
+<body data-style="cream">
+<div id="line"></div>
+<nav id="top">
+  <div class="l">断断续续 <em>/ 2019—2026</em></div>
+  <div class="r">
+    <a href="studio.html">作品集</a>
+    <a href="story.html">抽象版</a>
+    <a href="colophon.html">关于这部作品</a>
+    <a href="index.html">主页</a>
+  </div>
+</nav>
+
+<header id="pre">
+  <div class="k">人物与符号 · 一个可以滚下去的自传</div>
+  <h1 data-split>断断续续<br><em>但一直在走<svg class="rough" viewBox="0 0 220 76" preserveAspectRatio="none" aria-hidden="true"><path d="M14,40 C 30,14 90,7 150,10 C 196,12 212,26 206,42 C 198,60 150,68 96,66 C 52,64 16,58 14,44 C 13,38 18,32 26,28"/></svg></em></h1>
+  <div class="yr">2019 — 2026</div>
+  <p class="lede">这十张画里有一个我，<br>
+    还有一些一直跟着我的符号——风筝、纸飞机、哑铃、示波器。<br>
+    从深圳出发，绕了一圈，又回到深圳。</p>
+  <div class="hint">往下滚 ↓</div>
+</header>
+
+<main id="scroll">
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-01.jpg" alt="深圳 · 开始的地方" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>01</span></div>
+    <div class="txt">
+      <h2>深圳 · <em>开始的地方</em></h2>
+      <div class="when">高中</div>
+      <p>我在深圳长大。那座城市很快、很亮，桥下的车流像一条发光的河。那时候我常常想：<br>以后，我要在这里做点什么。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-02.jpg" alt="那年夏天" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>02</span></div>
+    <div class="txt">
+      <h2>那年夏天，<br><em>有一只风筝飞远了</em></h2>
+      <div class="when">高考结束</div>
+      <p>那年夏天，有一件事结束了，有一只风筝飞远了。<br>疼是真的。但风也是真的——它把我往前面吹。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-03.jpg" alt="我决定自己想办法" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>03</span></div>
+    <div class="txt">
+      <h2>我决定<em>自己想办法</em></h2>
+      <div class="when">那个假期</div>
+      <p>假期里我去酒店帮忙，也一家一家店去问招不招人。<br>没什么大道理，就是想靠自己。也就是从那时候起，我知道了自己是个会想办法的人。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-04.jpg" alt="罐子一点点满起来" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>04</span></div>
+    <div class="txt">
+      <h2>罐子<em>一点点满起来</em></h2>
+      <div class="when">大一 — 大四</div>
+      <p>家教，从小学教到高中。钱不算多，可每一笔都是我自己挣来的。<br>我喜欢“能靠自己”这五个字。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-05.jpg" alt="湛江 · 慢慢来" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>05</span></div>
+    <div class="txt">
+      <h2>湛江 · <em>慢慢来</em></h2>
+      <div class="when">大学</div>
+      <p>大学在湛江。满城的树和公园，和深圳完全是两种节奏。<br>在这里我学会了一件事：树是一年一年长高的，人也是。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-06.jpg" alt="我去到处试" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>06</span></div>
+    <div class="txt">
+      <h2>我去<em>到处试</em></h2>
+      <div class="when">2023</div>
+      <p>院声乐队、院办公室、副班长，后来又进了校队的阿卡贝拉。<br>什么都说“让我试试”——摸过一遍，才知道哪一块是自己的。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-07.jpg" alt="2025 · 开始举铁" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>07</span></div>
+    <div class="txt">
+      <h2>2025 · <em>开始举铁</em></h2>
+      <div class="when">2025</div>
+      <p>2025 年，我开始健身。一个动作一个动作地练，没有捷径。<br>身体是最诚实的朋友：你练多少，它就还你多少。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-08.jpg" alt="2026 · 实验室与课桌" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>08</span></div>
+    <div class="txt">
+      <h2>2026 · <em>实验室与课桌</em></h2>
+      <div class="when">2026</div>
+      <p>做实验、上课，日子过得很规律。<br>示波器的波形、一行行代码、一页页实验记录——每天一点点，都在悄悄攒着。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-09.jpg" alt="3 月到 9 月" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>09</span></div>
+    <div class="txt">
+      <h2>3 月到 9 月，<br><em>我换了一条路</em></h2>
+      <div class="when">2026</div>
+      <p>3 月，我开始备考；9 月，我决定换一条路。<br>这不是放弃——是把路看清了之后的选择：我不想再等了，我想出去闯一闯。</p>
+    </div>
+  </article>
+
+  <article class="beat">
+    <div class="fig"><div class="mask"><img src="assets/art/anime/anime-10.jpg" alt="回到深圳" loading="lazy"></div></div>
+    <div class="dot"><i></i><span>10</span></div>
+    <div class="txt">
+      <h2>回到<em>深圳</em></h2>
+      <div class="when">现在</div>
+      <p>我又回到了深圳，这座很快很亮的城市。但这一次不一样了——<br>我知道自己会什么、想要什么。这一次，我要在这里，闯出属于自己的一片天地。</p>
+    </div>
+  </article>
+
+</main>
+
+<section id="coda">
+  <div class="rule"></div>
+  <p>我不是一路顺风的人。<br>
+    但我也从来不是会往后退的人。</p>
+  <p>我允许自己停下。<br>
+    休息完了，一定继续走。</p>
+  <p>那些困难、摔跤、绕远的路——那又怎样。<br>
+    那也是我的，是独属于我的东西。</p>
+  <p>从深圳出发，经过湛江的树，现在又回到深圳。<br>
+    好像绕回了起点——但我已经不是原来的那个人了。</p>
+  <p>而且我相信，自己总有一天会成功。<br>
+    <em style="font-style:italic;color:var(--accent)">我的潜力，还远没用完。</em></p>
+  <div class="sig">还没到，但我非常确定我会到。<br>
+    — 沈炜丹 · 2026 年秋</div>
+  <div class="row">
+    <a class="pri" href="studio.html">看作品集 →</a>
+    <a href="story.html">对比：抽象物件版</a>
+  </div>
+</section>
+
+<script src="assets/delight.js" defer></script>
+<script src="assets/motion.js" defer></script>
+<script src="assets/handdrawn.js" defer></script>
+<script>
+(function(){
+  'use strict';
+  /* 逐段浮现 */
+  var beats = document.querySelectorAll('.beat');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) { e.target.classList.add('in'); }
+      });
+    }, { threshold: 0.22, rootMargin: '0px 0px -8% 0px' });
+    [].forEach.call(beats, function(b){ io.observe(b); });
+  } else {
+    [].forEach.call(beats, function(b){ b.classList.add('in'); });
+  }
+
+  /* 进度细线 */
+  var line = document.getElementById('line');
+  var top = document.getElementById('top');
+  var last = 0;
+  addEventListener('scroll', function(){
+    var h = document.documentElement;
+    var y = h.scrollTop;
+    var p = y / (h.scrollHeight - h.clientHeight || 1);
+    line.style.width = (p * 100).toFixed(2) + '%';
+    top.style.transform = (y > 300 && y > last + 8) ? 'translateY(-100%)' : 'none';
+    last = y;
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

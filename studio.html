@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INNER · 我的内核 — 沈炜丹</title>
+<meta name="description" content="沈炜丹的艺术作品集：把嵌入式专业课画成会生长的东西，以及家里那位中华田园犬。">
+<meta property="og:title" content="INNER · 我的内核">
+<meta property="og:description" content="不是事件，是我 — 从故事里挖出来的六块内核">
+<meta property="og:image" content="assets/art/art-dog-01.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#fffdf8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%90%BE%3C/text%3E%3C/svg%3E">
+<style>
+/* ============ STUDIO · 作品集（奶油族衬图） ============ */
+:root{
+  --bg:#f6f0e4; --card:#fffdf8; --ink:#241f18; --muted:#7a6a56;
+  --stroke:rgba(74,58,42,.18); --accent:#c8102e; --yel:#ffd400;
+  --ease:cubic-bezier(.2,.75,.25,1); --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:
+    radial-gradient(64vw 48vw at 14% 8%,#fff5ef 0%,transparent 58%),
+    radial-gradient(58vw 44vw at 86% 26%,#eef4ff 0%,transparent 60%),
+    var(--bg);
+  background-attachment:fixed;line-height:1.7;font-size:16px;overflow-x:hidden}
+a{color:inherit}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ---------- 导航 ---------- */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,253,248,.9);
+  backdrop-filter:blur(10px);border-bottom:2px solid var(--ink)}
+nav .in{max-width:1180px;margin:0 auto;height:56px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 24px}
+nav .brand{font-weight:800;letter-spacing:.04em;font-size:16px;text-decoration:none}
+nav .brand em{font-style:normal;color:var(--accent)}
+nav .links{display:flex;gap:20px;font-size:13.5px}
+nav .links a{text-decoration:none;color:var(--muted);font-weight:600;transition:.2s}
+nav .links a:hover{color:var(--ink);transform:translateY(-2px)}
+
+/* ---------- HERO ---------- */
+#hero{padding:96px 0 30px;text-align:center}
+#hero .kick{display:inline-block;background:var(--ink);color:var(--card);font-size:12px;
+  letter-spacing:.24em;padding:6px 16px;transform:rotate(-1.2deg);border-radius:2px;margin-bottom:22px}
+#hero h1{font-family:Georgia,"Times New Roman","Songti SC",serif;font-size:clamp(46px,8vw,96px);line-height:.95;letter-spacing:-.03em;
+  font-family:Georgia,"Times New Roman","Songti SC",serif;font-weight:700}
+#hero h1 em{font-style:italic;color:var(--accent)}
+#hero .sub{font-size:17px;color:var(--muted);max-width:560px;margin:20px auto 0}
+
+/* ---------- 筛选 ---------- */
+.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:40px 0 0}
+.filters button{font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;
+  background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:8px 18px;
+  transition:transform .18s var(--ease),background .18s,color .18s}
+.filters button:hover{transform:translateY(-3px) rotate(-2deg)}
+.filters button.on{background:var(--ink);color:var(--card)}
+
+/* ---------- 作品网格（学 portfolio-for-creatives：灰度 → 彩色 + 标题浮现） ---------- */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:44px 0 0}
+.card{position:relative;border-radius:18px 22px 19px 21px;overflow:hidden;cursor:zoom-in;
+  background:var(--card);border:2px solid rgba(74,58,42,.22);
+  box-shadow:var(--sh1);rotate:-.5deg;
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),opacity .4s var(--ease)}
+.card:nth-child(2n){rotate:.55deg}
+.card:nth-child(3n){rotate:-.25deg}
+.card:hover{cursor:zoom-in}
+.card:hover{box-shadow:var(--sh2)}
+.card .ph{aspect-ratio:3/2;overflow:hidden;background:#efe7d6;
+  border-bottom:2px solid rgba(74,58,42,.22)}
+.card img{width:100%;height:100%;object-fit:cover;
+  filter:grayscale(.88) contrast(1.02);
+  transition:filter .5s var(--ease),transform .6s var(--ease-out)}
+.card:hover img{filter:grayscale(0) contrast(1);transform:scale(1.05)}
+/* 悬浮浮现：别的颜色 + 别的字体（衬线斜体） */
+.card .ov{position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:24px;
+  background:linear-gradient(180deg,rgba(20,14,10,0) 30%,rgba(20,14,10,.55));
+  opacity:0;transition:opacity .4s var(--ease)}
+.card:hover .ov{opacity:1}
+.card .ov .no{font-family:Georgia,"Times New Roman","Songti SC",serif;font-style:italic;color:#fff8ec;
+  font-size:clamp(24px,3.4vw,40px);line-height:1.1;letter-spacing:.01em;
+  transform:translateY(14px);transition:transform .45s var(--ease-out)}
+.card:hover .ov .no{transform:none}
+.card .ov .cat{margin-top:10px;font-size:12px;letter-spacing:.18em;color:var(--yel);
+  font-weight:700;transform:translateY(14px);transition:transform .5s .06s var(--ease-out)}
+.card:hover .ov .cat{transform:none}
+/* 底部名字条 */
+.card .cap{display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  padding:13px 16px;border-top:2px solid var(--stroke);background:var(--card)}
+.card .cap b{font-size:15px;font-family:Georgia,serif}
+.card .cap span{font-size:12px;color:var(--muted);white-space:nowrap}
+/* 每张卡轻微歪斜（手绘拼贴感） */
+.card{rotate:-.35deg}
+.card:nth-child(2n){rotate:.4deg}
+.card:hover{rotate:0deg}
+
+/* ---------- 集合导语 ---------- */
+.series-note{margin:64px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.sn{background:var(--card);border:2px solid var(--stroke);border-radius:14px;padding:22px 24px}
+.sn h3{font-size:16px;margin-bottom:6px}
+.sn h3 i{font-style:normal;color:var(--accent)}
+.sn p{font-size:13.5px;color:var(--muted)}
+
+/* ---------- 灯箱（学她截图：白框大图 + 左下名字 + 右下 X） ---------- */
+#lb{position:fixed;inset:0;z-index:9992;background:rgba(23,18,13,.93);
+  display:flex;align-items:center;justify-content:center;padding:26px;
+  opacity:0;pointer-events:none;transition:opacity .26s var(--ease)}
+#lb.on{opacity:1;pointer-events:auto}
+#lb .frame{position:relative;background:#fffdf6;border-radius:4px;padding:10px;
+  max-width:min(880px,92vw);box-shadow:0 40px 110px rgba(0,0,0,.55);
+  transform:scale(.96);transition:transform .32s var(--ease-out)}
+#lb.on .frame{transform:scale(1)}
+#lb img{max-width:100%;max-height:80vh;border-radius:2px;display:block}
+#lb .name{font-family:Georgia,serif;font-style:italic;font-size:16px;
+  color:#241f18;padding:12px 4px 2px}
+#lb .x{position:absolute;right:-16px;bottom:-16px;width:44px;height:44px;border-radius:50%;
+  background:#fffdf6;border:none;cursor:pointer;font-size:19px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .18s var(--ease)}
+#lb .x:hover{transform:rotate(90deg) scale(1.08)}
+#lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;
+  border-radius:50%;background:#fffdf6;border:none;cursor:pointer;font-size:17px;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  transition:transform .18s var(--ease)}
+#lb .nav:hover{transform:translateY(-50%) scale(1.1)}
+#lb .prev{left:-74px} #lb .next{right:-74px}
+
+/* ---------- 结尾 ---------- */
+#fin{padding:110px 0 90px;text-align:center}
+#fin h2{font-family:Georgia,serif;font-style:italic;font-size:clamp(28px,4.4vw,44px)}
+#fin p{color:var(--muted);margin-top:12px}
+#fin .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+#fin .row a{display:inline-block;padding:11px 22px;border-radius:999px;border:2px solid var(--ink);
+  color:var(--ink);text-decoration:none;font-weight:700;font-size:14px;
+  transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+#fin .row a:hover{transform:translateY(-3px);box-shadow:4px 4px 0 var(--ink)}
+#fin .row a.pri{background:var(--ink);color:var(--card)}
+footer{border-top:2px solid var(--stroke);padding:26px 0 60px;text-align:center;
+  font-size:12.5px;color:var(--muted)}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:1fr}
+  .series-note{grid-template-columns:1fr}
+  #lb .prev{left:6px} #lb .next{right:6px}
+}
+
+/* Rough.js 式手绘圈注（纯 SVG 实现） */
+h1 em{position:relative;display:inline-block}
+h1 em svg.rough{position:absolute;left:-10%;top:-16%;width:120%;height:132%;overflow:visible;pointer-events:none}
+h1 em svg.rough path{fill:none;stroke:var(--accent,#c8102e);stroke-width:3;stroke-linecap:round;
+  stroke-dasharray:560;stroke-dashoffset:560;opacity:.8;
+  animation:roughDraw 1s cubic-bezier(.16,1,.3,1) 1s forwards}
+@keyframes roughDraw{to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion: reduce){h1 em svg.rough path{animation:none;stroke-dashoffset:0}}
+</style>
+<link rel="stylesheet" href="assets/unified.css">
+</head>
+<body data-style="cream">
+<a class="u-skip" href="#works">跳到作品</a>
+<nav>
+  <div class="in">
+    <a class="brand" href="index.html">沈炜丹 <em>/ STUDIO</em></a>
+    <div class="links">
+      <a href="index.html">主页</a>
+      <a href="story-yojiro.html">故事</a>
+      <a href="colophon.html">关于这部作品</a>
+      <a href="gallery.html">画廊</a>
+      <a href="styleA.html">美式版</a>
+      <a href="editorial.html">杂志专访</a>
+    </div>
+  </div>
+</nav>
+
+<header id="hero">
+  <div class="wrap">
+    <div class="kick">INNER · 从故事里挖出来的</div>
+    <h1 data-split>不是事件，<em>是我<svg class="rough" viewBox="0 0 220 76" preserveAspectRatio="none" aria-hidden="true"><path d="M14,40 C 30,14 90,7 150,10 C 196,12 212,26 206,42 C 198,60 150,68 96,66 C 52,64 16,58 14,44 C 13,38 18,32 26,28"/></svg></em></h1>
+    <p class="sub">这六件画的是内核——把故事拆开之后，剩下的那些东西。<br>它们比任何一张事件截图都更像我自己。</p>
+  </div>
+</header>
+
+<main class="wrap">
+    <div class="grid" id="works"></div>
+
+  <div class="series-note">
+    <div class="sn">
+      <h3><i>①</i> 停与走</h3>
+      <p>我曾用忙碌把自己填满，因为空下来就要面对。后来发现，敢于停下再出发的人，比一直跑的人走得更远。</p>
+    </div>
+    <div class="sn">
+      <h3><i>②</i> 撞与收</h3>
+      <p>方向不是找到的，是撞出来的。撞过的每一下、摔碎的每一片，我都捡起来收好——它们是我身上最硬的部分。</p>
+    </div>
+  </div>
+</main>
+
+<section id="fin">
+  <div class="wrap">
+    <h2>这些不是作品，<em>是我拆开给你看的六个部分。</em></h2>
+    <p>以后还会有第七个、第八个。<br>内核这种东西，是长出来的，不是想出来的。</p>
+    <div class="row">
+      <a class="pri" href="index.html">回主页 →</a>
+      <a href="story-yojiro.html">读我的故事 · 长卷</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 沈炜丹 · 作品都是自己画的 · 🐾</div>
+</footer>
+
+<!-- 灯箱 -->
+<div id="lb" aria-hidden="true">
+  <div class="frame">
+    <img id="lb-img" alt="">
+    <div class="name" id="lb-name"></div>
+    <button class="nav prev" id="lb-prev" aria-label="上一件">←</button>
+    <button class="nav next" id="lb-next" aria-label="下一件">→</button>
+    <button class="x" id="lb-x" aria-label="关闭">✕</button>
+  </div>
+</div>
+
+<script src="assets/delight.js" defer></script>
+<script src="assets/motion.js" defer></script>
+<script src="assets/handdrawn.js" defer></script>
+<script>
+var ART = [
+  {f:'all', img:'assets/art/core/core-01.jpg', no:'№1 — 允许自己停下', cat:'内核 · 停',
+   name:'我一直在让自己忙，因为停下来就要面对。后来我学会了比跑更难的事：允许自己停下。'},
+  {f:'all', img:'assets/art/core/core-02.jpg', no:'№2 — 摸过一遍才知道', cat:'内核 · 撞',
+   name:'社团、比赛、兼职、家教。我不是有计划地在走，是到处撞。摸过一遍，才知道哪块是自己的。'},
+  {f:'all', img:'assets/art/core/core-03.jpg', no:'№3 — 自己那盏灯', cat:'内核 · 光',
+   name:'有几年我总在找一个人来填空。后来不找了——我自己就能亮。'},
+  {f:'all', img:'assets/art/core/core-04.jpg', no:'№4 — 碎片也是我的', cat:'内核 · 收',
+   name:'那些摔的、断的、难堪的，那又怎样。一片片捡起来收好，那也是我的，独一份。'},
+  {f:'all', img:'assets/art/core/core-05.jpg', no:'№5 — 绕回来的时候', cat:'内核 · 绕',
+   name:'从深圳出发，经过湛江的树，又回到深圳。好像绕回了原地——但我已经不是原来那个人了。'},
+  {f:'all', img:'assets/art/core/core-06.jpg', no:'№6 — 还没画完', cat:'内核 · 待',
+   name:'还没到。但我非常确定，我会到。'}
+];
+
+var list = document.getElementById('works');
+var shown = [];
+
+function render(){
+  shown = ART.slice();
+  list.innerHTML = shown.map(function(a,i){
+    return '<article class="card" data-i="'+i+'" data-fx="'+a.f+'">'+
+      '<div class="ph"><img src="'+a.img+'" alt="'+a.name+'" loading="lazy"></div>'+
+      '<div class="ov"><div class="no">'+a.no+'</div><div class="cat">'+a.cat+'</div></div>'+
+      '<div class="cap"><b>'+a.no+'</b><span>'+a.cat+'</span></div></article>';
+  }).join('');
+}
+
+/* 灯箱：白框 + 左下名字 + 右下 X + 左右切换 */
+var lb=document.getElementById('lb'), lbi=document.getElementById('lb-img'),
+    lbn=document.getElementById('lb-name'), idx=0;
+function openLB(i){
+  idx=i; lbi.src=shown[i].img; lbn.textContent=shown[i].name+' · '+shown[i].no;
+  lb.classList.add('on');
+}
+list.addEventListener('click',function(e){
+  var c=e.target.closest('.card'); if(!c) return;
+  openLB(+c.getAttribute('data-i'));
+});
+function close(){lb.classList.remove('on');}
+document.getElementById('lb-x').addEventListener('click',close);
+lb.addEventListener('click',function(e){if(e.target===lb) close();});
+document.getElementById('lb-prev').addEventListener('click',function(e){
+  e.stopPropagation(); openLB((idx-1+shown.length)%shown.length);});
+document.getElementById('lb-next').addEventListener('click',function(e){
+  e.stopPropagation(); openLB((idx+1)%shown.length);});
+addEventListener('keydown',function(e){
+  if(!lb.classList.contains('on')) return;
+  if(e.key==='Escape') close();
+  if(e.key==='ArrowLeft') openLB((idx-1+shown.length)%shown.length);
+  if(e.key==='ArrowRight') openLB((idx+1)%shown.length);
+});
+
+render();
+</script>
+</body>
+</html>
