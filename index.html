@@ -16,11 +16,12 @@
            --line:#2b2b2e; --accent:#7ea2ff; }
   }
   *{box-sizing:border-box}
-  html,body{height:100%}
   body{
-    margin:0; background:var(--bg); color:var(--ink);
+    margin:0; min-height:100vh; background:var(--bg); color:var(--ink);
     font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-    display:grid; place-items:center; padding:32px 24px;
+    /* 用 flex 而非 grid：grid 下单列轨道不会撑满整行，place-items:center 会让内容偏左 */
+    display:flex; align-items:center; justify-content:center;
+    padding:48px 24px;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
   main{width:100%; max-width:520px}
