@@ -420,10 +420,10 @@ body{background:
 <section id="stats" style="padding:70px 0" data-nav="数据">
   <div class="wrap-wide">
     <div class="stat-row">
-      <div class="stat"><b data-count="10">0</b><span>真实完成的项目</span></div>
+      <div class="stat"><b data-count="11">0</b><span>真实完成的项目</span></div>
       <div class="stat"><b data-count="160">0</b><span>已修学分 · 修满</span></div>
       <div class="stat"><b><span data-count="83.32">0</span><span class="unit"> 分</span></b><span>历年平均成绩</span></div>
-      <div class="stat"><b data-count="22">0</b><span>GitHub 公开仓库</span></div>
+      <div class="stat"><b data-count="23">0</b><span>GitHub 公开仓库</span></div>
     </div>
   </div>
 </section>
@@ -481,7 +481,7 @@ body{background:
     <h2>全部真实完成。</h2>
     <p class="sec-sub">点「详情」看我具体做了什么、踩了什么坑。</p>
     <div class="filter-bar">
-      <button class="on" data-cat="all">全部 10 个</button>
+      <button class="on" data-cat="all">全部 11 个</button>
       <button data-cat="iot">嵌入式 · IoT</button>
       <button data-cat="ai">AI · 视觉</button>
       <button data-cat="soft">软件工程</button>
@@ -490,6 +490,21 @@ body{background:
       <button data-cat="ai-infra">AI 工程</button>
     </div>
     <div class="proj-grid">
+      <div class="proj reveal" data-cat="iot">
+        <div class="top"><h3>设备侧自动化回归测试框架</h3><span class="star">pytest</span></div>
+        <p>给串口 <b style="color:var(--ink)">AT 指令</b>协议搭一套回归框架：协议 / 设备 / 客户端三层分离，内置可注入故障的模拟固件，<b style="color:var(--ink)">无硬件即可跑 55 条用例</b>，协议分支覆盖 <b style="color:var(--ink)">15/15</b>；改一个环境变量即切真实串口，同一套断言照样成立。</p>
+        <div class="tags"><span class="tag">pytest</span><span class="tag">串口 / AT</span><span class="tag">故障注入</span><span class="tag">时延统计</span><span class="tag">Python</span></div>
+        <div class="p-foot"><a href="https://github.com/swdscsc/device-test-harness" target="_blank" rel="noopener">看仓库</a><button class="p-more">详情</button></div>
+        <div class="p-detail">
+          <h4>为什么做</h4><p>接口测试碰不到丢包、串包、半截帧、设备忙——而这些恰恰是固件联调里最常见的问题。我想把这类"偶发"问题变成可重复执行的用例，而不是靠人守着串口助手看日志。</p>
+          <h4>我具体做了什么</h4><ul>
+            <li>把协议定义、设备后端、测试客户端分成三层，用例里没有一处"模拟器 / 真机"判断</li>
+            <li>按「命令 × 结局」定义 15 条协议分支作为覆盖率分母，而不是"写了几条用例就算几条"</li>
+            <li>故障注入覆盖丢包 / 慢响应 / 半截帧 / 乱码 / 应答错位 / 设备忙六类，并验证链路自恢复</li>
+            <li>自研 HTML 报告输出通过率、分支覆盖与时延分布；200 轮混合命令长稳验证时延不劣化</li></ul>
+          <h4>踩过什么坑</h4><p>第一版时延被量成 15ms，而模型里写的是 4ms。查到最后是 Windows 的 <b>time.monotonic()</b> 底层走 GetTickCount64，分辨率只有 15.6ms——等待循环里时间不前进，空转到超时，读数还被抬高 3 倍。换成 <b>perf_counter()</b> 后 P50 降到 4.47ms。时延是设备测试的核心指标，量错了等于没测。</p>
+        </div>
+      </div>
       <div class="proj reveal" data-cat="iot">
         <div class="top"><h3>智能家居 IoT 系统</h3><span class="star">STM32</span></div>
         <p>STM32F103 + ESP8266 通过 MQTT 接入<b style="color:var(--ink)">华为云 IoT 平台</b>，完成传感器上报与远程控制双向联调，连续运行稳定。含 FreeRTOS 多任务与外设驱动。</p>
